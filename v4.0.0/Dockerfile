@@ -15,7 +15,7 @@ LABEL source.repo="https://github.com/tum-gis/3dcitydb-docker-postgis"
 # Setup PostGIS and 3DCityDB ##################################################
 ENV POSTGIS_MAJOR='2.4'
 ENV POSTGIS_VERSION='2.4.4+dfsg-4.pgdg90+1'
-ARG citydb_version='v3.2.0'
+ARG citydb_version='v4.0.0'
 ENV CITYDBVERSION=${citydb_version}
 
 ARG BUILD_PACKAGES='ca-certificates git'
@@ -45,7 +45,6 @@ RUN set -x && \
   rm -rf /var/lib/apt/lists/*
 
 # Copy scripts
-COPY CREATE_DB.sql /3dcitydb/
 COPY 3dcitydb.sh /docker-entrypoint-initdb.d/
 COPY addcitydb dropcitydb purgedb /usr/local/bin/
 

@@ -15,7 +15,7 @@ LABEL source.repo="https://github.com/tum-gis/3dcitydb-docker-postgis"
 # Setup PostGIS and 3DCityDB ##################################################
 ARG postgis_version='2.4.4'
 ENV POSTGIS_VERSION=${postgis_version}
-ARG citydb_version='v3.0.0'
+ARG citydb_version='%%CITYDB_VERSION%%'
 ENV CITYDBVERSION=${citydb_version}
 
 # Setup fetch deps

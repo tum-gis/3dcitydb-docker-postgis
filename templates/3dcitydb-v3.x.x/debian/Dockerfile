@@ -3,7 +3,7 @@
 #   GitHub              https://github.com/3dcitydb
 ###############################################################################
 # Base image
-ARG baseimage_tag='10-alpine'
+ARG baseimage_tag='10'
 FROM postgres:${baseimage_tag}
 
 # Labels ######################################################################
@@ -13,56 +13,36 @@ LABEL maintainer.organization="Chair of Geoinformatics, Technical University of 
 LABEL source.repo="https://github.com/tum-gis/3dcitydb-docker-postgis"
 
 # Setup PostGIS and 3DCityDB ##################################################
-ARG postgis_version='2.4.4'
-ENV POSTGIS_VERSION=${postgis_version}
-ARG citydb_version='v3.0.0'
+ENV POSTGIS_MAJOR='2.4'
+ENV POSTGIS_VERSION='2.4.4+dfsg-4.pgdg90+1'
+ARG citydb_version='%%CITYDB_VERSION%%'
 ENV CITYDBVERSION=${citydb_version}
 
-# Setup fetch deps
-RUN set -ex && \
-  apk update && \
-  apk add --no-cache --virtual .fetch-deps tar openssl git
+ARG BUILD_PACKAGES='ca-certificates git'
+ARG RUNTIME_PACKAGES="postgresql-$PG_MAJOR-postgis-$POSTGIS_MAJOR=$POSTGIS_VERSION \
+    postgresql-$PG_MAJOR-postgis-$POSTGIS_MAJOR-scripts=$POSTGIS_VERSION \
+    postgis=$POSTGIS_VERSION"
+
+# Setup build and runtime deps
+RUN set -x && \
+  apt-get update && \
+  apt-get install -y --no-install-recommends $BUILD_PACKAGES $RUNTIME_PACKAGES
 
 # Create folders
-RUN set -ex && \
+RUN set -x && \
   mkdir -p 3dcitydb && \
   mkdir -p /docker-entrypoint-initdb.d
 
-# Fetch 3DCityDB
-RUN set -ex && \
-  git clone -b "${POSTGIS_VERSION}" --depth 1 https://github.com/postgis/postgis.git postgis_temp && \
+# Clone 3DCityDB
+RUN set -x && \
   git clone -b "${CITYDBVERSION}" --depth 1 https://github.com/3dcitydb/3dcitydb.git 3dcitydb_temp && \
   mv 3dcitydb_temp/PostgreSQL/SQLScripts/* 3dcitydb
 
-# Setup build deps
-RUN set -ex && \  
-  apk add --no-cache --virtual .build-deps \
-    autoconf automake g++ json-c-dev libtool libxml2-dev make perl && \
-  apk add --no-cache --virtual .crypto-rundeps \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
-    libressl2.7-libcrypto && \
-  apk add --no-cache --virtual .build-deps-testing \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    geos-dev gdal-dev proj4-dev protobuf-c-dev
-
-# Build PostGIS
-RUN set -ex && \
-  cd postgis_temp && \
-  ./autogen.sh && \
-  ./configure && make && make install && \
-  cd ..
-
-# Setup runtime deps
-RUN set -ex && \
-  apk add --no-cache --virtual .postgis-rundeps json-c && \
-  apk add --no-cache --virtual .postgis-rundeps-testing \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    geos gdal proj4 protobuf-c
-
 # Cleanup
-RUN set -ex && \
-  apk del .fetch-deps .build-deps .build-deps-testing && \
-  rm -rf  postgis_temp 3dcitydb_temp
+RUN set -x && \
+  rm -rf 3dcitydb_temp && \
+  apt-get purge -y --auto-remove $BUILD_PACKAGES && \
+  rm -rf /var/lib/apt/lists/*
 
 # Copy scripts
 COPY CREATE_DB.sql /3dcitydb/

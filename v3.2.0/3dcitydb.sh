@@ -1,8 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # 3DCityDB setup --------------------------------------------------------------
 
 # Print commands and their arguments as they are executed
 set -e;
+
+# psql should stop on error
+psql=( psql -v ON_ERROR_STOP=1 )
 
 # Warn, if $POSTGRES_USER and $POSTGRES_PASSWORD are at their defaults
 if [ -z ${POSTGRES_USER+x} ] || [ "$POSTGRES_USER" = "postgres" ] ; then
@@ -80,7 +83,7 @@ echo "Creating database $CITYDBNAME ...done!"
 # Setup PostGIS extension
 echo
 echo "Create PostGIS extensions in database $CITYDBNAME ..."
-"${psql[@]}" -d "$CITYDBNAME" <<-'EOSQL'
+"${psql[@]}" -d "$CITYDBNAME" <<-EOSQL
     CREATE EXTENSION IF NOT EXISTS postgis;
 EOSQL
 echo "Create PostGIS extensions in database $CITYDBNAME ...done!"
@@ -89,7 +92,7 @@ echo "Create PostGIS extensions in database $CITYDBNAME ...done!"
 echo
 echo "Setting up 3DCityDB version $CITYDBVERSION database schema in $CITYDBNAME ..."
 cd /3dcitydb
-"${psql[@]}" -d "$CITYDBNAME" -f "../3dcitydb/CREATE_DB.sql" -v srsno="$SRID" -v srsname="$SRSNAME" > /dev/null
+"${psql[@]}" -d "$CITYDBNAME" -f "CREATE_DB.sql" -v srsno="$SRID" -v gmlsrsname="$SRSNAME" > /dev/null
 echo "Setting up 3DCityDB version $CITYDBVERSION database schema in $CITYDBNAME ...done!"
 echo
 echo "# Setting up 3DCityDB ... done! ################################################"
@@ -116,7 +119,7 @@ cat <<EOF
 #   Chair of Geoinformatics
 #   Department of Civil, Geo and Environmental Engineering
 #   Technical University of Munich (TUM)
-#   <b.willenborg@tum.de>
+#   b.willenborg(at)tum.de
 #
 ################################################################################
 

@@ -1,7 +1,8 @@
 #!/bin/bash
 
+# 3DCityDB v3.x.x -------------------------------------------------------------
 declare -a citydb_versions=("v3.0.0" "v3.1.0" "v3.2.0" "v3.3.0" "v3.3.1")
-scripts='CREATE_DB.sql 3dcitydb.sh addcitydb dropcitydb purgedb'
+scripts='templates/CREATE_DB.sql templates/3dcitydb.sh templates/addcitydb templates/dropcitydb templates/purgedb'
 
 for i in "${citydb_versions[@]}"
 do
@@ -18,13 +19,41 @@ do
   mkdir -p ${version_alpine}
     
   # template -> Dockerfile, replace %%CITYDB_VERSION%% in template
-  sed -e "s/%%CITYDB_VERSION%%/${version}/g" Dockerfile-debian.template > ${df_version}
-  sed -e "s/%%CITYDB_VERSION%%/${version}/g" Dockerfile-alpine.template > ${df_version_alpine}
+  sed -e "s/%%CITYDB_VERSION%%/${version}/g" "templates/3dcitydb-v3.x.x/debian/Dockerfile" > ${df_version}
+  sed -e "s/%%CITYDB_VERSION%%/${version}/g" "templates/3dcitydb-v3.x.x/alpine/Dockerfile" > ${df_version_alpine}
   
   # copy scripts
   cp $scripts ${version}
   cp $scripts ${version_alpine}
   
-  git add ${version} ${version_alpine}
+  git add ${version} ${version_alpine}  
+done
+
+# 3DCityDB v4.x.x -------------------------------------------------------------
+declare -a citydb_versions=("v4.0.0")
+scripts='templates/3dcitydb.sh templates/addcitydb templates/dropcitydb templates/purgedb'
+
+for i in "${citydb_versions[@]}"
+do
+  version="${i}"
+  version_alpine="${i}/alpine"
+  df_version=${version}/Dockerfile
+  df_version_alpine=${version_alpine}/Dockerfile
+  echo $version
+  echo $version_alpine
   
+  # clear existing version folder
+  rm -rf ${version}
+  mkdir -p ${version}
+  mkdir -p ${version_alpine}
+    
+  # template -> Dockerfile, replace %%CITYDB_VERSION%% in template
+  sed -e "s/%%CITYDB_VERSION%%/${version}/g" "templates/3dcitydb-v4.x.x/debian/Dockerfile" > ${df_version}
+  sed -e "s/%%CITYDB_VERSION%%/${version}/g" "templates/3dcitydb-v4.x.x/alpine/Dockerfile" > ${df_version_alpine}
+  
+  # copy scripts
+  cp $scripts ${version}
+  cp $scripts ${version_alpine}
+  
+  git add ${version} ${version_alpine}  
 done

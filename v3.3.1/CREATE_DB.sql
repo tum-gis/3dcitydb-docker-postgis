@@ -44,7 +44,7 @@ SET client_min_messages TO WARNING;
 \set SRSNO :srsno
 \set SRSNO :SRS_NO
 \set SRS_NO :srsno
-\set GMLSRSNAME :srsname
+\set GMLSRSNAME :gmlsrsname
 
 -- \echo 'SRSNO       ' :'SRSNO'
 -- \echo 'SRS_NO      ' :SRS_NO

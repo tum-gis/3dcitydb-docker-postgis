@@ -1,8 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Create 3DCityDB -------------------------------------------------------------
 
 # Print commands and their arguments as they are executed
 set -e;
+
+# psql should stop on error
+psql=( psql -v ON_ERROR_STOP=1 )
 
 # 3 args passed?
 if [ "$#" -ne 3 ]; then
@@ -30,9 +33,6 @@ else
   export PGPASSWORD="$POSTGRES_PASSWORD"
 fi
 
-# psql should stop on error
-psql=( psql -v ON_ERROR_STOP=1 )
-
 # check if PGUSER and PGPASS are set
 echo
 echo "# Setting up 3DCityDB ... ######################################################"
@@ -52,7 +52,7 @@ echo
 # setup 3dcitydb
 echo "Setting up 3DcityDB version $CITYDBVERSION database schema in $CITYDBNAME ..."
 cd /3dcitydb
-"${psql[@]}" -d "$CITYDBNAME" -f "../3dcitydb/CREATE_DB.sql" -v srsno="$SRID" -v srsname="$SRSNAME" > /dev/null
+"${psql[@]}" -d "$CITYDBNAME" -f "CREATE_DB.sql" -v srsno="$SRID" -v gmlsrsname="$SRSNAME" > /dev/null
 echo "Setting up 3DcityDB version $CITYDBVERSION database schema in $CITYDBNAME ...done!"
 echo
 echo "# Setting up 3DCityDB ... done! ################################################"
@@ -79,7 +79,7 @@ cat <<EOF
 #   Chair of Geoinformatics
 #   Department of Civil, Geo and Environmental Engineering
 #   Technical University of Munich (TUM)
-#   <b.willenborg@tum.de>
+#   b.willenborg(at)tum.de
 #
 ################################################################################
 

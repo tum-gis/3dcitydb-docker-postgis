@@ -3,9 +3,14 @@
 #   GitHub              https://github.com/3dcitydb
 ###############################################################################
 # Base image
-FROM postgres:10-alpine
-# Maintainer ##################################################################
-MAINTAINER Bruno Willenborg, Chair of Geoinformatics, Technical University of Munich (TUM) <b.willenborg@tum.de>
+ARG baseimage_tag='10-alpine'
+FROM postgres:${baseimage_tag}
+
+# Labels ######################################################################
+LABEL maintainer="Bruno Willenborg"
+LABEL maintainer.email="b.willenborg(at)tum.de"
+LABEL maintainer.organization="Chair of Geoinformatics, Technical University of Munich (TUM)"
+LABEL source.repo="https://github.com/tum-gis/3dcitydb-docker-postgis"
 
 # Setup PostGIS and 3DCityDB ##################################################
 ARG postgis_version='2.4.4'
@@ -13,42 +18,62 @@ ENV POSTGIS_VERSION=${postgis_version}
 ARG citydb_version='v3.1.0'
 ENV CITYDBVERSION=${citydb_version}
 
-RUN set -ex \
-  && apk update \
-  && apk add --no-cache --virtual .fetch-deps tar openssl git \
-  && git clone -b "${POSTGIS_VERSION}" --depth 1 https://github.com/postgis/postgis.git postgis_temp \
-  && git clone -b "${CITYDBVERSION}" --depth 1 https://github.com/3dcitydb/3dcitydb.git 3dcitydb_temp \
-  && apk add --no-cache --virtual .build-deps \
-      autoconf automake g++ json-c-dev \
-      libtool libxml2-dev make perl \
-  && apk add --no-cache --virtual .crypto-rundeps \
-      --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
-      libressl2.7-libcrypto \
-  && apk add --no-cache --virtual .build-deps-testing \
-      --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-      geos-dev gdal-dev proj4-dev protobuf-c-dev \
-  && cd postgis_temp \
-  && ./autogen.sh \
-  && ./configure && make && make install \
-  && cd .. \      
-  && apk add --no-cache --virtual .postgis-rundeps json-c \
-  && apk add --no-cache --virtual .postgis-rundeps-testing \
-        --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-        geos gdal proj4 protobuf-c \
-  && mkdir -p 3dcitydb \
-  && cp -r 3dcitydb_temp/PostgreSQL/SQLScripts/* 3dcitydb \
-  && apk del .fetch-deps .build-deps .build-deps-testing \  
-  && rm -rf  postgis_temp 3dcitydb_temp \
-  && mkdir -p /docker-entrypoint-initdb.d
+# Setup fetch deps
+RUN set -ex && \
+  apk update && \
+  apk add --no-cache --virtual .fetch-deps tar openssl git
 
-COPY 3dcitydb.sh /docker-entrypoint-initdb.d/
+# Create folders
+RUN set -ex && \
+  mkdir -p 3dcitydb && \
+  mkdir -p /docker-entrypoint-initdb.d
+
+# Fetch 3DCityDB
+RUN set -ex && \
+  git clone -b "${POSTGIS_VERSION}" --depth 1 https://github.com/postgis/postgis.git postgis_temp && \
+  git clone -b "${CITYDBVERSION}" --depth 1 https://github.com/3dcitydb/3dcitydb.git 3dcitydb_temp && \
+  mv 3dcitydb_temp/PostgreSQL/SQLScripts/* 3dcitydb
+
+# Setup build deps
+RUN set -ex && \  
+  apk add --no-cache --virtual .build-deps \
+    autoconf automake g++ json-c-dev libtool libxml2-dev make perl && \
+  apk add --no-cache --virtual .crypto-rundeps \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
+    libressl2.7-libcrypto && \
+  apk add --no-cache --virtual .build-deps-testing \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+    geos-dev gdal-dev proj4-dev protobuf-c-dev
+
+# Build PostGIS
+RUN set -ex && \
+  cd postgis_temp && \
+  ./autogen.sh && \
+  ./configure && make && make install && \
+  cd ..
+
+# Setup runtime deps
+RUN set -ex && \
+  apk add --no-cache --virtual .postgis-rundeps json-c && \
+  apk add --no-cache --virtual .postgis-rundeps-testing \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+    geos gdal proj4 protobuf-c
+
+# Cleanup
+RUN set -ex && \
+  apk del .fetch-deps .build-deps .build-deps-testing && \
+  rm -rf  postgis_temp 3dcitydb_temp
+
+# Copy scripts
 COPY CREATE_DB.sql /3dcitydb/
+COPY 3dcitydb.sh /docker-entrypoint-initdb.d/
 COPY addcitydb dropcitydb purgedb /usr/local/bin/
 
-RUN set -x \ 
-  && ln -s usr/local/bin/addcitydb / \
-  && chmod u+x /usr/local/bin/addcitydb \
-  && ln -s usr/local/bin/dropcitydb / \
-  && chmod u+x /usr/local/bin/dropcitydb \
-  && ln -s usr/local/bin/purgedb / \
-  && chmod u+x /usr/local/bin/purgedb  
+# Set permissions
+RUN set -ex && \ 
+  ln -s usr/local/bin/addcitydb / && \
+  ln -s usr/local/bin/dropcitydb / && \
+  ln -s usr/local/bin/purgedb / && \
+  chmod u+x /usr/local/bin/dropcitydb && \
+  chmod u+x /usr/local/bin/addcitydb && \
+  chmod u+x /usr/local/bin/purgedb  

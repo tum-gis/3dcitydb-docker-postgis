@@ -1,7 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Purge 3DCityDB --------------------------------------------------------------
+
 
 # Print commands and their arguments as they are executed
 set -e;
+
+# psql should stop on error
+psql=( psql -v ON_ERROR_STOP=1 )
 
 # 1 args passed?
 if [ "$#" -ne 1 ]; then
@@ -26,9 +31,6 @@ if [ -z ${POSTGRES_PASSWORD+x} ]; then
 else
   export PGPASSWORD="$POSTGRES_PASSWORD"
 fi
-
-# psql should stop on error
-psql=( psql -v ON_ERROR_STOP=1 )
 
 # drop citydb
 echo
