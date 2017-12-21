@@ -9,11 +9,11 @@ There are several configurations options available, e.g. for setting database us
 Please find the [documentation here](https://hub.docker.com/_/postgres/).
 
 ---
-*** PLEASE NOTE ***
+** PLEASE NOTE **
 
 **Everything you find in the repo is in an early testing stage.**
 
-If you experience any problems or have possible enhancements please let me know create and new issue [here](https://github.com/tum-gis/3dcitydb-docker/issues).
+If you experience any problems or see possible enhancements please let me know by creating a new issue [here](https://github.com/tum-gis/3dcitydb-docker/issues).
 
 ---
 ## Setup and usage
