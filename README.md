@@ -4,7 +4,7 @@ It allows for the *instant* creation of a 3DCityDB instance without having to se
 All you need is a [Docker](https://www.docker.com/what-docker) installation and the image provided here.
 Detailed information on how to get and setup Docker on your system is provided in the [official documentation](https://docs.docker.com/engine/installation/).
 
-The 3DCityDB Docker image provided here is based on the offical PostgreSQL 10.1 image. 
+The 3DCityDB Docker image provided here is based on the official PostgreSQL 10.1 image. 
 There are several configurations options available, e.g. for setting database user passwords. 
 Please find the [documentation here](https://hub.docker.com/_/postgres/).
 
@@ -57,17 +57,27 @@ sudo docker build -t 3dcitydb .
 
 ### Run this image
 Below some examples on how to run this container on Ubuntu are given.
-Adapt the environment variables specifiying the EPSG code (*SRSNO*), the spatial reference system name (*SRSNAME*) and the database name (*CITYDBNAME*) according to your needs.
-The *-p* switch allows you to specify on which port the 3DCityDB instance will be listening. For instance, use `-p 1234:5432` if you want to access the db on port *1234*.
+Adapt the environment variables specifying the EPSG code (*SRSNO*), the spatial reference system name (*SRSNAME*) and the database name (*CITYDBNAME*) according to your needs.
+The `-p` switch allows you to specify on which port the 3DCityDB instance will be listening.
+For instance, use `-p 1234:5432` if you want to access the database instance on port *1234* of the system hosting the Docker container.
+
+#### Parameter overview
+| ENV        | Description                            | Default value   |
+|------------|----------------------------------------|-----------------|
+| CITYDBNAME | Database name of the 3DCityDB instance | 3dcitydb-docker |
+| SRSNO      | Spatial reference system EPSG code     | 4326            |
+| SRSNAME    | Spatial reference system name          | EPSG:4326       |
+
+#### Usage examples - Ubuntu
 ```bash
 # run container in foreground mode
-sudo docker run -e "SRSNAME=EPSG:31468" -e "SRSNO=31468" -e"CITYDBNAME=mycitydb" -p 1234:5432 -it 3dcitydb
+sudo docker run -e "SRSNAME=EPSG:31468" -e "SRSNO=31468" -e "CITYDBNAME=mycitydb" -p 1234:5432 -it 3dcitydb
 
 # run container in foreground mode with interactive bash shell, e.g. for making changes to the container
-sudo docker run -e "SRSNAME=EPSG:31468" -e "SRSNO=31468" -e"CITYDBNAME=mycitydb" --name citydb-instance -p 1234:5432 -it 3dcitydb bash
+sudo docker run -e "SRSNAME=EPSG:31468" -e "SRSNO=31468" -e "CITYDBNAME=mycitydb" --name citydb-instance -p 1234:5432 -it 3dcitydb bash
 
 # run container in detached mode
-sudo docker run -e "SRSNAME=EPSG:31468" -e "SRSNO=31468" -e"CITYDBNAME=mycitydb" -d --name citydb-instance -p 1234:5432 3dcitydb
+sudo docker run -e "SRSNAME=EPSG:31468" -e "SRSNO=31468" -e "CITYDBNAME=mycitydb" -d --name citydb-instance -p 1234:5432 3dcitydb
 
 # stop container running in detached mode
 sudo docker stop citydb-instance 

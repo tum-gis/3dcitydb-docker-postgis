@@ -30,7 +30,6 @@ RUN apt-get update \
 ###############################################################################
 ARG version=3.3.1
 ENV CITYDBVERSION=${version}
-ENV CITYDBNAME citydb
 
 RUN set -x \
   && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* \
