@@ -38,9 +38,10 @@ if [ -z ${SRSNAME+x} ]; then
 fi
 
 cat <<EOF
-#   DBNAME            $CITYDBNAME
-#   SRSNO             $SRSNO
-#   SRSNAME           $SRSNAME
+
+   DBNAME            $CITYDBNAME
+   SRSNO             $SRSNO
+   SRSNAME           $SRSNAME
 EOF
 echo "# Setting up 3DCityDB environment ...done! #####################################"
 
