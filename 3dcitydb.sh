@@ -15,7 +15,7 @@ if [ -z ${CITYDBNAME+x} ]; then
   echo "NOTE:"
   echo "   CITYDBNAME has not been set. Using default CITYDBNAME=$CITYDBNAME."
   echo "   To change the default CITYDBNAME, use the docker run \"-e\" switch."
-  echo "   Example: \"docker run -d -e \"CITYDBNAME=myCustomDatabaseName\" 3dcitydb"
+  echo "   Example: \"docker run -d -e \"CITYDBNAME=myCustomDatabaseName\" 3dcitydb\""
 fi
 
 if [ -z ${SRSNO+x} ]; then
@@ -24,7 +24,7 @@ if [ -z ${SRSNO+x} ]; then
   echo "NOTE:"
   echo "   SRSNO has not been set. Using default SRSNO=4326."
   echo "   To change the default SRSNO, use the docker run \"-e\" switch."
-  echo "   Example: \"docker run -d -e \"SRSNO=31468\" 3dcitydb"
+  echo "   Example: \"docker run -d -e \"SRSNO=31468\" 3dcitydb\""
 fi
 
 if [ -z ${SRSNAME+x} ]; then
@@ -34,7 +34,7 @@ if [ -z ${SRSNAME+x} ]; then
   echo "NOTE:"
   echo "   SRSNAME has not been set. Using default SRSNAME=\"EPSG:4426\"."
   echo "   To change the default SRSNAME, use the docker run \"-e\" switch."
-  echo "   Example: \"docker run -d -e \"SRSNAME=EPSG:31468\" 3dcitydb"
+  echo "   Example: \"docker run -d -e \"SRSNAME=EPSG:31468\" 3dcitydb\""
 fi
 
 cat <<EOF
@@ -73,29 +73,29 @@ echo "# Setting up 3DCityDB ... done! ##########################################
 cat <<EOF
 
 
-# 3DCityDB Docker ##############################################################
+# 3DCityDB Docker #############################################################
 #
-# PostgreSQL/PostGIS -----------------------------------------------------------
+# PostgreSQL/PostGIS ----------------------------------------------------------
 #   PostgreSQL version $PG_MAJOR - $PG_VERSION
 #     PG User         $POSTGRES_USER
 #     PG Password     $POSTGRES_PASSWORD
 #   PostGIS version   $POSTGIS_MAJOR - $POSTGIS_VERSION
 #
-# 3DCityDB ----------------------------------------------------------------------
+# 3DCityDB --------------------------------------------------------------------
 #   3DCityDB version  $CITYDBVERSION
 #     version info    https://github.com/3dcitydb/3dcitydb/releases/tag/v$CITYDBVERSION
 #   DBNAME            $CITYDBNAME
 #   SRSNO             $SRSNO
 #   SRSNAME           $SRSNAME
 #
-# Maintainer -------------------------------------------------------------------
+# Maintainer ------------------------------------------------------------------
 #   Bruno Willenborg
 #   Chair of Geoinformatics
 #   Department of Civil, Geo and Environmental Engineering
 #   Technical University of Munich (TUM)
 #   <b.willenborg@tum.de>
 #
-################################################################################
+###############################################################################
 
 
 EOF

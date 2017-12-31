@@ -28,8 +28,8 @@ RUN apt-get update \
 #   build with another version of 3dcitydb
 #     -tested versions: 3.3.1, 3.0.0
 ###############################################################################
-ARG version=3.3.1
-ENV CITYDBVERSION=${version}
+ARG citydb_version=3.3.1
+ENV CITYDBVERSION=${citydb_version}
 
 RUN set -x \
   && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* \

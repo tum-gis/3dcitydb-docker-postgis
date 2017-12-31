@@ -27,7 +27,7 @@ If you experience any problems or see possible enhancements please let me know b
   * [Typical usage scenario](#typical-usage-scenario)
     * [Example use case: Create KML from CityGML buildings](#typical-usage-scenario-usecase)    
 * **[How to build](#how-to-build)**
-  * [Ubuntu build step-by-step guide](#ubuntu-build-step-by-step-guide)   
+  * [Build parameters](#build-parameters)
   
 <a name="setup-and-usage"></a>
 ## Setup and usage
@@ -83,14 +83,16 @@ After the import has completed, you are ready to run (=create a container) from 
 
 <a name="how-to-run-the-3dcitydb-docker-image"></a>
 ## How to run the 3DCityDB Docker image
-Below some examples on how to run the 3DCityDB Docker image on an Ubuntu system are given. By *running* an image, a *container* is created from it. 
+Below some examples on how to run the 3DCityDB Docker image are given. 
+By *running* an image with [`docker run`](https://docs.docker.com/engine/reference/commandline/run/), a *container* is created from it. 
 To get familiar with the terms *image* and *container* take a look at the [official Docker documentation](https://docs.docker.com/engine/userguide/storagedriver/imagesandcontainers/).
-
-The `-p <host port:docker port>` switch of the `docker run` command allows you to specify on which port the 3DCityDB instance will listen on your host system.
-For instance, use `-p 1234:5432` if you want to access the database instance on port *1234* of the system hosting the Docker container.
 
 <a name="parameter-overview"></a>
 ### Parameter overview
+The `-p <host port:docker port>` switch of the [`docker run`](https://docs.docker.com/engine/reference/commandline/run/)
+command allows you to specify on which port the 3DCityDB instance will listen on your host system.
+For instance, use `-p 1234:5432` if you want to access the database instance on port *1234* of the system hosting the Docker container.
+
 To run the 3DCityDB Docker image you need to adapt the environment variables specifying the EPSG code (*SRSNO*), 
 the spatial reference system name (*SRSNAME*) and the database name (*CITYDBNAME*) according to your needs.
 The table below gives an overview on the currently available configuration parameters. 
@@ -104,12 +106,12 @@ If a parameter is omitted in the `docker run` call, its default value from the t
 
 **Note:**
 The 3DCityDB Docker image provided here is based on the official PostgreSQL 10.1 image. 
-There are several configurations options available, e.g. for setting a custom database user and password. 
-Please find the [documentation here](https://hub.docker.com/_/postgres/).
+There are much more configurations options available, e.g. for setting a custom database user and password. 
+Please take a look at the [PostgreSQL Docker image documentation](https://hub.docker.com/_/postgres/) to do so.
 
 <a name="usage-examples-ubuntu"></a>
 ### Usage examples
-Below some examples for running a 3DCityDB container named *citydb-container* based on the image named *3dcitydb*  are given. 
+Below some examples for running a 3DCityDB container named *citydb-container* based on the image named *3dcitydb*  are given.
 The 3DCityDB database name used during the example is *mycitydb*. 
 The spatial reference system of this 3DCityDB is *31468*, *EPSG:31468*.
 The host port of the 3DCityDB is port *1234*.
@@ -140,20 +142,30 @@ docker rm citydb-container    # remove a container
 <a name="how-to-build"></a>
 ## How to build
 Building an image from the Dockerfile in this repo is easy. You simply need to download the source code from this repo and run the 
-`docker build` command.
+[`docker build`](https://docs.docker.com/engine/reference/commandline/build/) command. 
 
-<a name="ubuntu-build-step-by-step-guide"></a>
-### Ubuntu build step-by-step guide
-1. Download source code using git. 
 ```bash
+# 1. Download source code using git. 
 git clone https://github.com/tum-gis/3dcitydb-docker.git
-```
-2. Change to the source folder you just cloned.
-```bash
+# 2. Change to the source folder you just cloned.
 cd 3dcitydb-docker
+# 3. Build a docker image tagged *3dcitydb*.
+docker build -t 3dcitydb .
 ```
-3. Build a docker image named *3dcitydb*.
+
+If the build succeeds, you are ready to run the image as described above.
+To list all locally available images run `docker images`. 
+
+<a name="build-parameters"></a>
+### Build parameters
+To build a Docker image with a specific 3DCityDB version, the `docker build --build-arg` parameter can be used.
+
+***Note:*** This feature has only been tested with 3DCityDB version 3.0.0.
+
+| Parameter name | Description                            | Default value     |
+|----------------|----------------------------------------|-------------------|
+| citydb_version | Version of the 3DCityDB                | *3.3.1*           |
+
 ```bash
-sudo docker build -t 3dcitydb .
+docker build --build-arg "citydb_version=3.0.0" -t 3dcitydb .
 ```
-4. If the build succeeds, you are ready to run the image.
