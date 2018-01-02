@@ -30,6 +30,8 @@ RUN apt-get update \
 ###############################################################################
 ARG citydb_version=3.3.1
 ENV CITYDBVERSION=${citydb_version}
+ARG citydb_default_db_name="3dcitydb-docker"
+ENV CITYDBNAME=${citydb_default_db_name}
 
 RUN set -x \
   && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* \

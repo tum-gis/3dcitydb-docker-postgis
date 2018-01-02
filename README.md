@@ -4,8 +4,8 @@ It allows for the *instant* creation of a 3DCityDB instance without having to se
 All you need is a [Docker](https://www.docker.com/what-docker) installation and the image provided here.
 Detailed information on how to get and setup Docker on your system is provided in the [official documentation](https://docs.docker.com/engine/installation/).
 
-**Note:** Everything in this repo is in an early testing stage. 
-If you experience any problems or see possible enhancements please let me know by creating a new issue [here](https://github.com/tum-gis/3dcitydb-docker/issues).
+> **Note:** Everything in this repo is in an early testing stage. 
+> If you experience any problems or see possible enhancements please let me know by creating a new issue [here](https://github.com/tum-gis/3dcitydb-docker/issues).
 
 ## Quick start
 For a quick run of the 3DCityDB Docker image first either [download](#get-docker-image) the ready-to-run 3DCityDB Docker image or create a fresh [build](#how-to-build).
@@ -97,10 +97,10 @@ If a parameter is omitted in the [`docker run`](https://docs.docker.com/engine/r
 | SRSNO          | Spatial reference system EPSG code     | *4326*            |
 | SRSNAME        | Spatial reference system name          | *EPSG:4326*       |
 
-**Note:**
-The 3DCityDB Docker image provided here is based on the official PostgreSQL 10.1 image. 
-There are much more configurations options available, e.g. for setting a custom database user and password. 
-Please take a look at the [PostgreSQL Docker image documentation](https://hub.docker.com/_/postgres/) for more.
+> **Note:**
+> The 3DCityDB Docker image provided here is based on the official PostgreSQL 10.1 image. 
+> There are much more configurations options available, e.g. for setting a custom database user and password. 
+> Please take a look at the [PostgreSQL Docker image documentation](https://hub.docker.com/_/postgres/) for more.
 
 <a name="usage-examples"></a>
 ### Usage examples
@@ -141,11 +141,13 @@ docker stop citydb-container  # stop a running container
 docker start citydb-container # start a stopped container
 docker rm citydb-container    # remove a container
 ```
-**Note:** In the examples above long commands are broken to several lines for readability using bash line continue ("\").
-<a name="how-to-build"></a>
+> **Note:**
+> In the example above long commands are broken to several lines for readability using bash line continue ("\").  
 
-**Note:**  Docker offers much more than the commands listed above. 
-[Here](https://github.com/wsargent/docker-cheat-sheet) you can find a more comprehensive overview on Docker's commands.
+> **Note:**  Docker offers much more than the commands listed above. 
+> [Here](https://github.com/wsargent/docker-cheat-sheet) you can find a more comprehensive overview on Docker's commands.
+
+<a name="how-to-build"></a>
 ## How to build
 Building an image from the Dockerfile in this repo is easy. 
 You simply need to download the source code from this repo and run the 
@@ -171,11 +173,18 @@ the [`docker build --build-arg`](https://docs.docker.com/engine/reference/comman
 
 **Note:** This feature has only been tested with 3DCityDB version *3.0.0* so far.
 
-| Parameter name | Description                            | Default value     |
-|----------------|----------------------------------------|-------------------|
-| citydb_version | Version of the 3DCityDB                | *3.3.1*           |
+| Parameter name         | Description                            | Default value     |
+|------------------------|----------------------------------------|-------------------|
+| citydb_version         | Version of the 3DCityDB                | *3.3.1*           |
+| citydb_default_db_name | Name of the database created at container startup, if not overwritten by CITYDBNAME environment variable. | *3dcitydb-docker* |
 
 Build example:
 ```bash
-docker build --build-arg "citydb_version=3.0.0" -t 3dcitydb .
+docker build \
+    --build-arg "citydb_version=3.0.0" \
+    --build-arg "citydb_default_db_name=my3DCityDB" \
+    -t 3dcitydb .
 ```
+> **Note:**
+> In the example above long commands are broken to several lines for readability using bash line continue ("\").
+ 
