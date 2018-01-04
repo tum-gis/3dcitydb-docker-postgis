@@ -1,5 +1,5 @@
 # 3D City Database Docker image
-This is the git repo of the (not yet, but hopefully soon to become) [official image](https://docs.docker.com/docker-hub/official_repos/) for the [3D City Database(3DCityDB)](https://github.com/3dcitydb/3dcitydb).
+This is the git repo of the (not yet, but hopefully soon to become) [official image](https://docs.docker.com/docker-hub/official_repos/) for the [3D City Database (3DCityDB)](https://github.com/3dcitydb/3dcitydb).
 It allows for the *instant* creation of a 3DCityDB instance without having to setup and configure a database server.
 All you need is a [Docker](https://www.docker.com/what-docker) installation and the image provided here.
 Detailed information on how to get and setup Docker on your system is provided in the [official documentation](https://docs.docker.com/engine/installation/).
