@@ -32,13 +32,14 @@ When this image has been tested successfully, it will be released to [Docker Hub
 The best way of sharing Docker images with the public is with [Docker Hub](https://hub.docker.com/). 
 To obtain an image from Docker Hub you simply need to download it using the [`docker pull`](https://docs.docker.com/engine/reference/commandline/pull/#usage) command.
 However, as the 3DCityDB Docker image is not published jet, we need to use the 
-[`docker load`](https://docs.docker.com/engine/reference/commandline/load/) commands to import the image you can download below on your system.
+[`docker load`](https://docs.docker.com/engine/reference/commandline/load/) command to import the image you can download below on your system.
 
 DOWNLOAD: [**3DCityDB Docker TESTING image**](https://www.3dcitydb.org/3dcitydb/fileadmin/public/3dcitydb-docker/3dcitydb.tar.gz)
 
 <a name="docker-import-export"></a>
 ### Docker image import/export
-To find out what images exist on your system run [`docker images`](https://docs.docker.com/engine/reference/commandline/images/) to list all local images. You will receive an output similar to this:
+To find out what images exist on your system run [`docker images`](https://docs.docker.com/engine/reference/commandline/images/). 
+You will receive an output similar to this:
 ```
 $: docker images
 
@@ -71,7 +72,7 @@ gunzip -c 3dcitydb.tar.gz | docker image load
 sudo sh -c 'gunzip -c 3dcitydb.tar.gz | docker image load'
 ```
 
-After the import has completed, you are ready to run (=create a container) from the image.
+After the import has completed, you are ready to run from the image.
 
 <a name="how-to-run-the-3dcitydb-docker-image"></a>
 ## How to run the 3DCityDB Docker image
@@ -149,7 +150,7 @@ docker rm citydb-container    # remove a container
 Building an image from the Dockerfile in this repo is easy. 
 You simply need to download the source code from this repo and run the 
 [`docker build`](https://docs.docker.com/engine/reference/commandline/build/) command. 
-Follow the step below to build a 3dcitydb Docker image.
+Follow the step below to build a 3DcityDB Docker image.
 
 ```bash
 # 1. Download source code using git. 
@@ -165,7 +166,8 @@ To list all locally available images run [`docker images`](https://docs.docker.c
 
 <a name="build-parameters"></a>
 ### Build parameters
-To build a Docker image with a specific 3DCityDB version, the [`docker build --build-arg`](https://docs.docker.com/engine/reference/commandline/build/) parameter can be used.
+To build a Docker image with a specific 3DCityDB version, 
+the [`docker build --build-arg`](https://docs.docker.com/engine/reference/commandline/build/) parameter can be used.
 
 **Note:** This feature has only been tested with 3DCityDB version *3.0.0* so far.
 
@@ -173,6 +175,7 @@ To build a Docker image with a specific 3DCityDB version, the [`docker build --b
 |----------------|----------------------------------------|-------------------|
 | citydb_version | Version of the 3DCityDB                | *3.3.1*           |
 
+Build example:
 ```bash
 docker build --build-arg "citydb_version=3.0.0" -t 3dcitydb .
 ```
