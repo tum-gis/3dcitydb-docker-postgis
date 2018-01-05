@@ -8,36 +8,71 @@ Detailed information on how to get and setup Docker on your system is provided i
 > If you experience any problems or see possible enhancements please let me know by creating a new issue [here](https://github.com/tum-gis/3dcitydb-docker/issues).
 
 ## Quick start
-For a quick run of the 3DCityDB Docker image first either [download](#get-docker-image) the ready-to-run 3DCityDB Docker image or create a fresh [build](#how-to-build).
+For a quick run of the 3DCityDB Docker image first either [pull](#tum-gis-registry) (recommended) or [download](#get-docker-image) the ready-to-run 3DCityDB Docker image or create a fresh [build](#how-to-build).
 Second, when the 3DCityDB Docker image is available on your system see the documentation and examples on how to [run](#how-to-run-the-3dcitydb-docker-image) the 3DCityDB Docker image.
  
 ## Content
-* **[Setup and usage](#setup-and-usage)**
-  * [Get the 3DCityDB Docker image](#get-docker-image)
+* **[Get the 3DCityDB Docker image](#get-docker-image)**
+  * [TUM-GIS Docker registry](#tum-gis-registry)
   * [Docker image import/export](#docker-import-export) 
 * **[How to run the 3DCityDB Docker image](#how-to-run-the-3dcitydb-docker-image)**
   * [Parameter overview](#parameter-overview)
   * [Usage examples](#usage-examples)
 * **[How to build](#how-to-build)**
   * [Build parameters](#build-parameters)
-  
-<a name="setup-and-usage"></a>
-## Setup and usage
-Currently, this docker image has not been released to [Docker Hub](https://hub.docker.com/).
-Hence, you either need to build it yourself or import the pre-build docker image provided below.
-When this image has been tested successfully, it will be released to [Docker Hub](https://hub.docker.com/).
 
 <a name="get-docker-image"></a>
-### Get the 3DCityDB Docker image
-The best way of sharing Docker images with the public is with [Docker Hub](https://hub.docker.com/). 
-To obtain an image from Docker Hub you simply need to download it using the [`docker pull`](https://docs.docker.com/engine/reference/commandline/pull/#usage) command.
-However, as the 3DCityDB Docker image is not published jet, we need to use the 
-[`docker load`](https://docs.docker.com/engine/reference/commandline/load/) command to import the image you can download below on your system.
+## Get the 3DCityDB Docker image
+The best way of sharing Docker images is with a [Docker registry](https://docs.docker.com/registry/). 
+A registry allows for the distribution of Docker images with the [`docker pull`](https://docs.docker.com/engine/reference/commandline/pull/#usage) 
+and [`docker push`](https://docs.docker.com/engine/reference/commandline/push/) commands.
+The official Docker registry offering 100,000+ free apps is called [Docker Hub](https://hub.docker.com/).
 
-DOWNLOAD: [**3DCityDB Docker TESTING image**](https://www.3dcitydb.org/3dcitydb/fileadmin/public/3dcitydb-docker/3dcitydb.tar.gz)
+Currently, the 3DCityDB Docker image has not been released to the public, it is not (jet) available on [Docker Hub](https://hub.docker.com/).
+Meanwhile, three options are available to get the 3DCityDB Docker image:
+* [Pull image from TUM-GIS Docker registry](#tum-gis-registry)
+* [Download and import image](#docker-import-export)
+* [Build image](#how-to-build)
 
+<a name="tum-gis-registry"></a>
+### TUM-GIS Docker registry
+The TUM-GIS Docker registry is a Docker registry set up at a server at TUM, Chair of Geoinformatics. 
+It is meant for testing purpose and **only reachable within the TUM network**.
+Follow the steps below to obtain the 3DCityDB Docker image from there:
+
+1. Import SSL certificate  
+First, download the self-signed SSL certificate of the TUM-GIS Docker registry.
+Depending on your operating system use the *x509* or *pfx/p12* certificate format.  
+   * x509:    [x509 SSL certificate download](https://www.3dcitydb.org/3dcitydb/fileadmin/public/3dcitydb-docker/domain.crt)
+   * pfx/p12: [pfx SSL certificate download](https://www.3dcitydb.org/3dcitydb/fileadmin/public/3dcitydb-docker/domain.pfx)
+
+2. Import SSL certificate  
+After downloading the SSL certificate, you need to install it on your system. 
+The certificate install process varies for different operation system:
+   * Windows: Right-click certificate (x509) file and select *Install certificate*.
+     Follow the instructions of the install wizard and leave all options at their defaults.
+  
+   * MAC OSX: A guide for install SSL certificates can be found [here](https://www.sslsupportdesk.com/how-to-import-a-certificate-into-      mac-os/).
+   * Other operating systems: Google -> "myOS SSL certificate install"
+  
+3. Restart Docker  
+To make sure the new certificate is known to Docker restart Docker. 
+If the certificate seems not to be known after restarting Docker, retry the install process and reboot your system.
+
+4. Pull the 3DCityDB Docker image  
+Now you should be able to access the TUM-GIS Docker registry and pull images from it using [`docker pull`](https://docs.docker.com/engine/reference/commandline/pull/#usage).
+```bash
+docker pull tum-gis-testserver.duckdns.org/3dcitydb           # latest image (3DCityDB v.3.3.1)
+docker pull tum-gis-testserver.duckdns.org/3dcitydb:v3.0.0    # 3DCityDB v.3.0.0
+```
+After the image has been pulled successfully you are ready to [run](#how-to-run-the-3dcitydb-docker-image) the image.
+  
 <a name="docker-import-export"></a>
 ### Docker image import/export
+To import a Docker image on your local system the docker [`docker load`](https://docs.docker.com/engine/reference/commandline/load/) command can be used.
+First, download the 3DCityDB Docker image here:  
+DOWNLOAD: [**3DCityDB Docker TESTING image**](https://www.3dcitydb.org/3dcitydb/fileadmin/public/3dcitydb-docker/3dcitydb.tar.gz)
+
 To find out what images exist on your system run [`docker images`](https://docs.docker.com/engine/reference/commandline/images/). 
 You will receive an output similar to this:
 ```
@@ -71,8 +106,7 @@ gunzip -c 3dcitydb.tar.gz | docker image load
 # if super user is required try following for a Ubuntu system:
 sudo sh -c 'gunzip -c 3dcitydb.tar.gz | docker image load'
 ```
-
-After the import has completed, you are ready to run from the image.
+After the import has completed, you are ready to [run](#how-to-run-the-3dcitydb-docker-image) from the image.
 
 <a name="how-to-run-the-3dcitydb-docker-image"></a>
 ## How to run the 3DCityDB Docker image
@@ -152,7 +186,7 @@ docker rm citydb-container    # remove a container
 Building an image from the Dockerfile in this repo is easy. 
 You simply need to download the source code from this repo and run the 
 [`docker build`](https://docs.docker.com/engine/reference/commandline/build/) command. 
-Follow the step below to build a 3DcityDB Docker image.
+Follow the step below to build a 3DCityDB Docker image.
 
 ```bash
 # 1. Download source code using git. 
