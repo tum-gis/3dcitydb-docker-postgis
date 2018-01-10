@@ -125,16 +125,21 @@ the spatial reference system name (*SRSNAME*) and the database name (*CITYDBNAME
 The table below gives an overview on the currently available configuration parameters. 
 If a parameter is omitted in the [`docker run`](https://docs.docker.com/engine/reference/commandline/run/) call, its default value from the table is used.
 
-| Parameter name | Description                            | Default value     |
-|----------------|----------------------------------------|-------------------|
-| CITYDBNAME     | Database name of the 3DCityDB instance | *3dcitydb-docker* |
-| SRSNO          | Spatial reference system EPSG code     | *4326*            |
-| SRSNAME        | Spatial reference system name          | *EPSG:4326*       |
+| Parameter name    | Description                            | Default value     |
+|----------------   |----------------------------------------|-------------------|
+| CITYDBNAME        | Database name of the 3DCityDB instance | *3dcitydb-docker* |
+| SRSNO             | Spatial reference system EPSG code     | *4326*            |
+| SRSNAME           | Spatial reference system name          | *EPSG:4326*       |
 
-> **Note:**
-> The 3DCityDB Docker image provided here is based on the official PostgreSQL 10.1 image. 
-> There are much more configurations options available, e.g. for setting a custom database user and password. 
-> Please take a look at the [PostgreSQL Docker image documentation](https://hub.docker.com/_/postgres/) for more.
+The 3DCityDB Docker image provided here is based on the official PostgreSQL 10.1 image.
+There are much more configurations options available, e.g. for setting a custom database user and password. 
+Please take a look at the [PostgreSQL Docker image documentation](https://hub.docker.com/_/postgres/) for more.
+The table below lists the configuration options for setting a database user and its password.
+
+| Parameter name    | Description                            | Default value     |
+|----------------   |----------------------------------------|-------------------|
+| POSTGRES_USER     | PostgreSQL database user               | *postgres*        |
+| POSTGRES_PASSWORD | PostgreSQL database user password      | *postgres*        |
 
 <a name="usage-examples"></a>
 ### Usage examples
