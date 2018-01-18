@@ -1,21 +1,15 @@
-# 3DCityDB Dockerfile #########################################################
+# 3DCityDB PostGIS Dockerfile #################################################
 #   Official website    https://www.3dcitydb.net
 #   GitHub              https://github.com/3dcitydb
 ###############################################################################
 # Base image
 FROM postgres:10.1
 # Maintainer ##################################################################
-#   Bruno Willenborg
-#   Chair of Geoinformatics
-#   Department of Civil, Geo and Environmental Engineering
-#   Technical University of Munich (TUM)
-#   <b.willenborg@tum.de>
 MAINTAINER Bruno Willenborg, Chair of Geoinformatics, Technical University of Munich (TUM) <b.willenborg@tum.de>
 
 # Setup PostGIS ###############################################################
-# based on mdillon/postgis
 ENV POSTGIS_MAJOR 2.4
-ENV POSTGIS_VERSION 2.4.2+dfsg-1.pgdg90+1
+ENV POSTGIS_VERSION 2.4.3+dfsg-2.pgdg90+1
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
@@ -24,10 +18,6 @@ RUN apt-get update \
     postgis=$POSTGIS_VERSION
 
 # Setup 3DCityDB ##############################################################
-#   set default 3dcitydb version. Use "--build-arg" switch of "docker build" to
-#   build with another version of 3dcitydb
-#     -tested versions: 3.3.1, 3.0.0
-###############################################################################
 ARG citydb_version=3.3.1
 ENV CITYDBVERSION=${citydb_version}
 ARG citydb_default_db_name="3dcitydb-docker"
