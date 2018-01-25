@@ -23,6 +23,10 @@ ENV CITYDBVERSION=${citydb_version}
 ARG citydb_default_db_name="citydb"
 ENV CITYDBNAME=${citydb_default_db_name}
 
+# make sure a default password is set
+ARG postgres_password=postgres
+ENV POSTGRES_PASSWORD=${postgres_password}
+
 RUN set -x \
   && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* \
   && mkdir -p 3dcitydb && wget "https://github.com/3dcitydb/3dcitydb/archive/v${CITYDBVERSION}.tar.gz" -O 3dcitydb.tar.gz \
@@ -32,3 +36,18 @@ RUN set -x \
 RUN mkdir -p /docker-entrypoint-initdb.d
 COPY ./3dcitydb.sh /docker-entrypoint-initdb.d/3dcitydb.sh
 COPY ./CREATE_DB.sql /3dcitydb/CREATE_DB.sql
+
+# add addCityDB.sh
+COPY ./addCityDB.sh /usr/local/bin/
+RUN ln -s usr/local/bin/addCityDB.sh / # backwards compat
+RUN chmod u+x /usr/local/bin/addCityDB.sh
+
+# add dropCityDB.sh
+COPY ./dropCityDB.sh /usr/local/bin/
+RUN ln -s usr/local/bin/dropCityDB.sh / # backwards compat
+RUN chmod u+x /usr/local/bin/dropCityDB.sh
+
+# add purgeDB.sh
+COPY ./purgeDB.sh /usr/local/bin/
+RUN ln -s usr/local/bin/purgeDB.sh / # backwards compat
+RUN chmod u+x /usr/local/bin/purgeDB.sh

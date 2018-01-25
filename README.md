@@ -25,16 +25,21 @@ If you are new to Docker, I recommend reading the section on *data storage and p
 For building your own image scroll to the *build* section at the bottom.
 
 ## Quick start
+1. Install Docker on your system.     
+   Downloads and detailed instructions for various operating systems can be found here: [https://docs.docker.com/install/](https://docs.docker.com/install/)
+2. Download and execute [quickstart.bat](https://github.com/tum-gis/3dcitydb-docker-postgis/blob/devel/quickstart.bat) for **Windows** operating systems or [quickstart.sh](https://github.com/tum-gis/3dcitydb-docker-postgis/blob/devel/quickstart.sh) for **Linux** based operating systems or use one of the example commands below.
+
+### Example commands
 To quickly get a 3DCityDB instance running on Docker run following command and adapt the 
 `SRID`, `SRSNAME` environment variables and the `-p` switch according to your needs.
-#### Example Linux Bash
+#### Linux Bash
 ```bash
 docker run -dit --name citydb-container -p 5432:5432 \
     -e "SRID=31468" \
     -e "SRSNAME=urn:adv:crs:DE_DHDN_3GK4*DE_DHN92_NH" \
   tumgis/3dcitydb-postgis
 ```
-#### Example Windows CMD
+#### Windows CMD
 ```bat
 docker run -dit --name citydb-container -p 5432:5432^
     -e "SRID=31468"^

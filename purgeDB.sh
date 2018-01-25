@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Print commands and their arguments as they are executed
+set -e;
+
+# 1 args passed?
+if [ "$#" -ne 1 ]; then
+  printf "Error: Wrong number of arguments passed.\n"
+  echo "Usage: purgeDB.sh DBNAME" >&2
+  exit 1
+fi
+
+# parse arguments
+DBNAME="$1"
+
+# Perform all actions as $POSTGRES_USER if set, else use default user = postgres
+if [ -z ${POSTGRES_USER+x} ]; then
+  export PGUSER=postgres;
+else
+  export PGUSER="$POSTGRES_USER";
+fi
+
+# Use $POSTGRES_PASSWORD if set, else use default password = postgres
+if [ -z ${POSTGRES_PASSWORD+x} ]; then
+  export PGPASSWORD=postgres;
+else
+  export PGPASSWORD="$POSTGRES_PASSWORD"
+fi
+
+# psql should stop on error
+psql=( psql -v ON_ERROR_STOP=1 )
+
+# drop citydb
+echo
+echo "Purging database $DBNAME ..."
+echo "DROP DATABASE \"$DBNAME\";" | "${psql[@]}"
+echo "Purging database $DBNAME ... done!"
