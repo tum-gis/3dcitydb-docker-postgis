@@ -44,13 +44,21 @@ docker run -dit --name citydb-container -p 5432:5432^
 > **Note:**
 > In the examples above long commands are broken to several lines for readability using the Bash (` \ `) or CMD (`^`) line continuation.  
 
-When your Docker container is running according to the examples above, the 3DCityDB instance will be available here:
+When your Docker container is running according to the example above, you can connect to the 3DCityDB instance using e.g. the 3DCityDB ImporterExporter with the following credentials:
 ```
 HOST        my.docker.host
 PORT        5432
-DBNAME      3dcitydb-docker
+TYPE        PostGIS
 USERNAME    postgres
 PASSWORD    postgres
+DBNAME      3dcitydb-docker
+```
+
+To check if the 3DCityDB docker container is operational take a look at the container's log using `docker logs CONTAINER`.
+You will find a summary of the *database connection credentials* and the *spatial reference system* configuration in the log as well.
+```bash
+# example: follow log of container named "citydb-container"
+docker logs -f citydb-container
 ```
 
 ## Environment variables
