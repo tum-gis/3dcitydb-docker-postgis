@@ -51,7 +51,7 @@ PORT        5432
 TYPE        PostGIS
 USERNAME    postgres
 PASSWORD    postgres
-DBNAME      3dcitydb-docker
+DBNAME      citydb
 ```
 
 To check if the 3DCityDB docker container is operational take a look at the container's log using `docker logs CONTAINER`.
@@ -73,7 +73,7 @@ If a parameter is omitted in the [`docker run`](https://docs.docker.com/engine/r
 
 | Parameter name    | Description                            | Default value     |
 |-------------------|----------------------------------------|-------------------|
-| CITYDBNAME        | Name of the database that is created at the first run of the container | *3dcitydb-docker* |
+| CITYDBNAME        | Name of the database that is created at the first run of the container | *citydb* |
 | SRID              | Spatial reference system SRID (EPSG code)     | *4326*            |
 | SRSNAME           | Spatial reference system name          | *urn:ogc:def:crs:EPSG::4326*       |
 
@@ -262,7 +262,7 @@ The table below lists the currently available build parameters and their default
 | Parameter name         | Description                            | Default value     |
 |------------------------|----------------------------------------|-------------------|
 | citydb_version         | Version of the 3DCityDB                | *3.3.1*           |
-| citydb_default_db_name | Name of the database created at container startup, if not overwritten by CITYDBNAME environment variable. | *3dcitydb-docker* |
+| citydb_default_db_name | Name of the database created at container startup, if not overwritten by CITYDBNAME environment variable. | *citydb* |
 
 #### Build example:
 ```bash

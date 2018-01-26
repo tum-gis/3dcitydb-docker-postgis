@@ -20,7 +20,7 @@ RUN apt-get update \
 # Setup 3DCityDB ##############################################################
 ARG citydb_version=3.3.1
 ENV CITYDBVERSION=${citydb_version}
-ARG citydb_default_db_name="3dcitydb-docker"
+ARG citydb_default_db_name="citydb"
 ENV CITYDBNAME=${citydb_default_db_name}
 
 RUN set -x \
