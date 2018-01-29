@@ -118,7 +118,7 @@ IF /i NOT "%var%"=="" (
 :q5
 set var=
 echo.
-echo Please enter a database NAME for the 3DCityDB. Press ENTER to use default.
+echo Please enter a DATABASE NAME for the 3DCityDB. Press ENTER to use default.
 set /p var="(default=citydb): "
 
 IF /i NOT "%var%"=="" (
@@ -141,7 +141,7 @@ IF /i NOT "%var%"=="" (
   goto:q7
 )
 
-:: Port is numeric and between 1 and 65535?
+:: SRID is numeric?
 SET "num="&for /f "delims=0123456789" %%i in ("%var%") do set num=%%i
 IF defined num (
   echo.
