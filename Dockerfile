@@ -23,6 +23,10 @@ ENV CITYDBVERSION=${citydb_version}
 ARG citydb_default_db_name="citydb"
 ENV CITYDBNAME=${citydb_default_db_name}
 
+# make sure a default password is set
+ARG postgres_password=postgres
+ENV POSTGRES_PASSWORD=${postgres_password}
+
 RUN set -x \
   && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* \
   && mkdir -p 3dcitydb && wget "https://github.com/3dcitydb/3dcitydb/archive/v${CITYDBVERSION}.tar.gz" -O 3dcitydb.tar.gz \
