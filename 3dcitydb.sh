@@ -4,13 +4,37 @@
 # Print commands and their arguments as they are executed
 set -e;
 
-# Perform all actions as $POSTGRES_USER
+# Warn, if $POSTGRES_USER and $POSTGRES_PASSWORD are at their defaults
+if [ -z ${POSTGRES_USER+x} ] || [ "$POSTGRES_USER" = "postgres" ] ; then
+  export POSTGRES_USER="postgres";
+  echo
+  echo "!!! WARNING !!! ################################################################"
+  echo "   POSTGRES_USER is at its default setting."
+  echo "   POSTGRES_USER=${POSTGRES_USER}."
+  echo "   Consider changing the default username for security reasons!"
+  echo
+  echo "   To change the default POSTGRES_USER, use the docker run \"-e\" switch."
+  echo "   Example: \"docker run -d -e \"POSTGRES_USER=newuser\" 3dcitydb\""
+  echo "################################################################################"
+fi
+
+if [ "$POSTGRES_PASSWORD" = "postgres" ] ; then
+  echo
+  echo "!!! WARNING !!! ################################################################"
+  echo "   POSTGRES_PASSWORD is at its default setting."
+  echo "   POSTGRES_PASSWORD=${POSTGRES_PASSWORD}."
+  echo "   Consider changing the default password for security reasons!"
+  echo
+  echo "   To change the default POSTGRES_PASSWORD, use the docker run \"-e\" switch."
+  echo "   Example: \"docker run -d -e \"POSTGRES_PASSWORD=newuser\" 3dcitydb\""
+  echo "################################################################################"
+fi
+
+# Perform all actions as $POSTGRES_USER with password $POSTGRES_PASSWORD
 export PGUSER="$POSTGRES_USER"
+export PGPASSWORD="$POSTGRES_PASSWORD"
 
 # Set default env: POSTGRES_PASSWORD, CITYDBNAME, SRID, SRSNAME
-# set non-empty default db user password for 3DCityDB ImporterExporter compatibility
-export POSTGRES_PASSWORD=postgres   
-
 echo
 echo "# Setting up 3DCityDB environment ... ##########################################"
 if [ -z ${CITYDBNAME+x} ]; then
