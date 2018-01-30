@@ -145,7 +145,7 @@ IF /i NOT "%var%"=="" (
 SET "num="&for /f "delims=0123456789" %%i in ("%var%") do set num=%%i
 IF defined num (
   echo.
-  echo SRID must be numeric Please retry.
+  echo SRID must be numeric. Please retry.
   goto:q6
 )
 
@@ -153,7 +153,7 @@ IF defined num (
 set var=
 echo.
 echo Please enter the name of the spatial reference system to use for the 3DCityDB. Press ENTER to use default.
-set /p var="(default=urn:ogc:def:crs:EPSG::4326): "
+set /p var="(default SRS=WGS84, SRSNAME=urn:ogc:def:crs:EPSG::4326): "
 
 IF /i NOT "%var%"=="" (
   set SRSNAME=%var%
@@ -169,7 +169,7 @@ echo Here is a summary of the settings you provided:
 echo.
 echo Container name:          %CONTAINERNAME%
 echo Container host port:     %PORT%
-echo 3DCityDB usename:        %DBUSER%
+echo 3DCityDB username:       %DBUSER%
 echo 3DCityDB password:       %DBPASSWORD%
 echo 3DCityDB database name:  %DBNAME%
 echo 3DCityDB SRS SRID:       %SRID%
@@ -200,24 +200,25 @@ exit /b
 
 :success
 echo.
-echo Good news! Your container seems to be up and running!
-echo.
-echo Here is a list of your running containers:
-echo.
-docker ps
+echo Good news. It seems your container war started successfully.
+echo. 
+echo Run "docker ps -a" to check the status of your container. [ running :) ^| exited :( ]
+echo If the container status is "Exited" run "docker logs %CONTAINERNAME%" to get information on errors during startup.
 echo.
 echo ########################################################################################
 echo.
 echo Here are some useful Docker commands for this container:
 echo.
+echo docker ps -a                            List all containers and their current status
 echo docker logs -f %CONTAINERNAME%         Attach the log of your container, useful for debugging
 echo docker exec -it %CONTAINERNAME% bash   Get an interactive shell on your container, useful for making changes to the container
 echo docker stop %CONTAINERNAME%            Stop the container, if you do not need it temporarily
 echo docker start %CONTAINERNAME%           Start the container, if you need it again
 echo.
-echo !! DANGERZONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+echo !!!!!! DANGERZONE !!!!!!----------------------------------------------------------------
 echo docker rm -f %CONTAINERNAME%           Stop if running and remove the container but keep its data 
 echo docker rm -f -v %CONTAINERNAME%        Stop if running and remove the container and ALL its data. This cannot be undone!!
+echo !!!!!! DANGERZONE !!!!!!----------------------------------------------------------------
 echo.
 echo ########################################################################################
 echo.
