@@ -294,3 +294,8 @@ docker build \
   The 3DCityDB Docker image has been tested with:
   * Ubuntu x64 16.04: Docker v1.13.1
   * Win10 x64 1709, Docker v17.12.0-ce
+
+# License
+The content of this repository is released under the terms of the [Apache-2.0 License](https://github.com/tum-gis/3dcitydb-docker-postgis/blob/master/LICENSE).
+
+The software components used in this project may be subject to different licensing conditions. Please refer to the website of the individual projects for further information.
