@@ -25,9 +25,9 @@ If you are new to Docker, I recommend reading the section on *data storage and p
 For building your own image scroll to the *build* section at the bottom.
 
 ## Quick start
-1. Install Docker on your system.     
+1. Install Docker on your system.  
    Downloads and detailed instructions for various operating systems can be found here: [https://docs.docker.com/install/](https://docs.docker.com/install/)
-2. Download and execute [quickstart.bat](https://github.com/tum-gis/3dcitydb-docker-postgis/blob/devel/quickstart.bat) for **Windows** operating systems or [quickstart.sh](https://github.com/tum-gis/3dcitydb-docker-postgis/blob/devel/quickstart.sh) for **Linux** based operating systems or use one of the example commands below.
+2. Download and execute [quickstart.bat](https://github.com/tum-gis/3dcitydb-docker-postgis/blob/devel/quickstart.bat) for **Windows** operating systems or [quickstart.sh](https://github.com/tum-gis/3dcitydb-docker-postgis/blob/devel/quickstart.sh) for **Linux** based operating systems or use one of the example commands below. The *Quickstart scripts* are meant for Docker newcomers. They will guide you through the process of setting up a 3DCityDB Docker container. No previous knowledge on Docker required!
 
 ### Example commands
 To quickly get a 3DCityDB instance running on Docker run following command and adapt the 

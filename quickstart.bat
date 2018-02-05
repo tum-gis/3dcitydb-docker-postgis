@@ -13,19 +13,24 @@ echo ###########################################################################
 echo ## 3DCityDB PostGIS Docker Image Quickstart Script #####################################
 echo ########################################################################################
 echo.
+echo Welcome to the 3DCityDB PostGIS Docker Image Quickstart Script. This script will 
+echo guide you through the process of setting up a 3DCityDB Docker Container. It is going
+echo to download the latest 3DCityDB PostGIS Docker image from DockerHub for you and create
+echo a 3DCityDB PostGIS Docker container based on the configuration parameters requested
+echo during this script.
+echo.
+echo Please follow the instructions of the script.
+echo   Enter the required parameters when prompted and press ENTER to confirm.
+echo   Only press ENTER when prompted to use the default value.
+echo.
 echo Documentation and help:
 echo    3DCityDB PostGIS Docker Image:  https://github.com/tum-gis/3dcitydb-docker-postgis
-echo    3DCityDB:                       https://github.com/3dcitydb
 echo    3DCityDB on DockerHub:          https://hub.docker.com/r/tumgis/3dcitydb-postgis/
+echo    3DCityDB:                       https://github.com/3dcitydb
 echo.
 echo Having problems or need support?
 echo    Please file an issue here:
 echo    https://github.com/tum-gis/3dcitydb-docker-postgis/issues
-echo.
-echo How to use this script:
-echo    Please follow the instructions of the script. 
-echo    Enter the required parameters when prompted and press ENTER to confirm.
-echo    Just press ENTER when prompted to use the default value.
 echo. 
 echo ########################################################################################
 echo.
@@ -33,9 +38,13 @@ echo.
 docker info > nul
 IF NOT "%errorlevel%"=="0" (
   echo.
+  echo !!!!! WARNING !!!!! ############################################################
   echo Docker seems not to be installed or running.
-  echo Please make sure Docker is up and runnung and retry. Use the "docker info" command to check if Docker works.
+  echo Please make sure Docker is up and runnung and retry. Use the "docker info" command to check if Docker is operational.
+  echo Help on setting up Docker can be found here: https://docs.docker.com/install/
+  echo.
   echo Press any key to quit.
+  echo ################################################################################
   echo.
   pause
   exit /b  

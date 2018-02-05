@@ -6,35 +6,47 @@
 #-----------------------------------------------------------------------------
 
 # Greetings ------------------------------------------------------------------
-echo 
-echo '########################################################################################'
-echo '## 3DCityDB PostGIS Docker Image Quickstart Script #####################################'
-echo '########################################################################################'
-echo
-echo 'Documentation and help:'
-echo '   3DCityDB PostGIS Docker Image:  https://github.com/tum-gis/3dcitydb-docker-postgis'
-echo '   3DCityDB:                       https://github.com/3dcitydb'
-echo '   3DCityDB on DockerHub:          https://hub.docker.com/r/tumgis/3dcitydb-postgis/'
-echo
-echo 'Having problems or need support?'
-echo '   Please file an issue here:'
-echo '   https://github.com/tum-gis/3dcitydb-docker-postgis/issues'
-echo
-echo 'How to use this script:'
-echo '   Please follow the instructions of the script.'
-echo '   Enter the required parameters when prompted and press ENTER to confirm.'
-echo '   Just press ENTER when prompted to use the default value.'
-echo 
-echo '########################################################################################'
-echo
+cat <<EOF
+
+########################################################################################
+## 3DCityDB PostGIS Docker Image Quickstart Script #####################################
+########################################################################################
+
+Welcome to the 3DCityDB PostGIS Docker Image Quickstart Script. This script will 
+guide you through the process of setting up a 3DCityDB Docker Container. It is going
+to download the latest 3DCityDB PostGIS Docker image from DockerHub for you and create
+a 3DCityDB PostGIS Docker container based on the configuration parameters requested
+during this script.
+
+Please follow the instructions of the script.
+  Enter the required parameters when prompted and press ENTER to confirm.
+  Only press ENTER when prompted to use the default value.
+
+Documentation and help:
+   3DCityDB PostGIS Docker Image:  https://github.com/tum-gis/3dcitydb-docker-postgis
+   3DCityDB on DockerHub:          https://hub.docker.com/r/tumgis/3dcitydb-postgis/
+   3DCityDB:                       https://github.com/3dcitydb
+
+Having problems or need support?
+   Please file an issue here:
+   https://github.com/tum-gis/3dcitydb-docker-postgis/issues
+
+########################################################################################
+
+
+EOF
 
 # Check, IF Docker engine is running -----------------------------------------
 docker info > /dev/null
 if [ "$?" != "0" ]; then 
   echo
+  echo '!!!!! WARNING !!!!! ############################################################'
   echo 'Docker seems not to be installed or running.'
-  echo 'Please make sure Docker is up and runnung and retry. Use the "docker info" command to check if Docker works.'
+  echo 'Please make sure Docker is up and runnung and retry. Use the "docker info" command to check if Docker is operational.'
+  echo 'Help on setting up Docker can be found here: https://docs.docker.com/install/'
+  echo
   echo 'Press ENTER quit.'
+  echo '################################################################################'
   read
   exit 
 fi
@@ -111,22 +123,22 @@ read -p "(default SRS=WGS84, SRSNAME=urn:ogc:def:crs:EPSG::4326): " SRSNAME
 SRSNAME=${SRSNAME:-urn:ogc:def:crs:EPSG::4326}
 
 # print settings
-echo
-echo '########################################################################################'
-echo
-echo 'Here is a summary of the settings you provided:'
-echo
-echo "Container name:          $CONTAINERNAME"
-echo "Container host port:     $PORT"
-echo "3DCityDB username:       $DBUSER"
-echo "3DCityDB password:       $DBPASSWORD"
-echo "3DCityDB database name:  $DBNAME"
-echo "3DCityDB SRS SRID:       $SRID"
-echo "3DCityDB SRS SRSNAME:    $SRSNAME"
-echo 
-echo '########################################################################################'
-echo
+cat <<EOF
+########################################################################################
 
+Here is a summary of the settings you provided:
+
+Container name:          $CONTAINERNAME
+Container host port:     $PORT
+3DCityDB username:       $DBUSER
+3DCityDB password:       $DBPASSWORD
+3DCityDB database name:  $DBNAME
+3DCityDB SRS SRID:       $SRID
+3DCityDB SRS SRSNAME:    $SRSNAME
+
+########################################################################################
+
+EOF
 # Create Docker container
 echo 'Trying to start your docker container now...'
 echo
@@ -169,6 +181,7 @@ if [ "$?" = "0" ]; then
   read
   exit
 else
+  # no, something bad happened
   echo
   echo 'Oh no! Something went wrong. Inspect the error message above to get a hint on what happend.'
   echo
