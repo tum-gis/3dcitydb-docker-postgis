@@ -1,7 +1,14 @@
 # 3D City Database PostGIS Docker image
-This repo contains a Dockerfile to create a [3D City Database (3DCityDB) v3.3.1](https://github.com/3dcitydb) running on a [PostgreSQL v10.1](https://www.postgresql.org/) server with [PostGIS v2.4.3](https://postgis.net/).
+This repo contains a Dockerfile to create a [3D City Database (3DCityDB) v3.3.1](https://github.com/3dcitydb) running on a [PostgreSQL v10.1](https://www.postgresql.org/) server with [PostGIS v2.4.3](https://postgis.net/). To get the 3DCityDB PostGIS Docker images visit the [tumgis/3dcitydb-postgis](https://hub.docker.com/r/tumgis/3dcitydb-postgis/) DockerHub page. To get things moving fast take a look the *Quick start* section.
 
-To get the 3DCityDB PostGIS Docker images visit the [tumgis/3dcitydb-postgis](https://hub.docker.com/r/tumgis/3dcitydb-postgis/) DockerHub page.
+#### Special features
+* *Quickstart scripts* for convenience and Docker newcomers.
+* Helper scripts for *adding*, *removing* and *purging* a 3DCityDB instance inside a container.
+
+#### Image versions/tags
+* **latest** - Latest stable version based on latest version of the 3DCityDB. Built from [master](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/master) branch.
+* **devel** - Development version containing latest features. Based on latest version of the 3DCityDB. Built from [devel](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/devel) branch.
+* **v3.0.0**, **v3.1.0**, **v3.2.0**, **v3.3.0**, **v3.3.1** - Same content as **latest** image, but built with a specific version (**vX.X.X**) of the 3DCityDB. Built from the branches named like the versions.
 
 > **Note:** Everything in this repo is in development stage. 
 > If you experience any problems or have a suggestion/improvement please let me know by creating an issue [here](https://github.com/tum-gis/3dcitydb-docker/issues).
@@ -16,18 +23,24 @@ The 3D City Database comes with tools for easy data exchange and coupling with c
 > [3DCityDB Github - https://github.com/3dcitydb](https://github.com/3dcitydb)  
 > [CityGML - https://www.citygml.org](https://www.citygml.org/)  
 > [3DCityDB and CityGML Hands-on Tutorial - https://www.gis.bgu.tum.de/en/projects/3dcitydb](https://www.gis.bgu.tum.de/en/projects/3dcitydb/#c1425)
+
+## Quick start
+This section describes how to get a 3DcityDB PostGIS Docker container running as quick and easy as possible.
+1. Install Docker on your system.  
+   This step is mandatory.
+   Downloads and detailed instructions for various operating systems can be found here: [https://docs.docker.com/install/](https://docs.docker.com/install/)
+2. Download (Rightclick -> Save target as) and execute one of the *Quickstart scripts*.  
+   The Quickstart scripts are meant for Docker newcomers and convenience use. They will guide you through the process of setting up a 3DCityDB Docker container. There is no previous knowledge on Docker required! The scripts will download the 3DCityDB PostGIS Docker image for form [DockerHub](https://hub.docker.com/r/tumgis/3dcitydb-postgis/) for you and interactively request all required configuration.
+  * [quickstart.bat](https://github.com/tum-gis/3dcitydb-docker-postgis/blob/devel/quickstart.bat) for **Windows** operating systems
+  *  [quickstart.sh](https://github.com/tum-gis/3dcitydb-docker-postgis/blob/devel/quickstart.sh) for **Linux** based operating systems
+
+For detailed usage instructions and examples go to the *How to use this image* section.
   
 # How to use this image
 In this section you will find information on how to work with the 3DCityDB Docker image. 
-The next section describes how to *get started quickly*. 
 For a comprehensive description of all *environment variables* and *usage examples* look further below.
 If you are new to Docker, I recommend reading the section on *data storage and persistence*. 
-For building your own image scroll to the *build* section at the bottom.
-
-## Quick start
-1. Install Docker on your system.  
-   Downloads and detailed instructions for various operating systems can be found here: [https://docs.docker.com/install/](https://docs.docker.com/install/)
-2. Download and execute [quickstart.bat](https://github.com/tum-gis/3dcitydb-docker-postgis/blob/devel/quickstart.bat) for **Windows** operating systems or [quickstart.sh](https://github.com/tum-gis/3dcitydb-docker-postgis/blob/devel/quickstart.sh) for **Linux** based operating systems or use one of the example commands below. The *Quickstart scripts* are meant for Docker newcomers. They will guide you through the process of setting up a 3DCityDB Docker container. No previous knowledge on Docker required!
+For building your own image scroll down to the *build* section at the bottom.
 
 ### Example commands
 To quickly get a 3DCityDB instance running on Docker run following command and adapt the 
@@ -157,6 +170,42 @@ docker run -d --name citydb-container -p 1234:5432^
 ```
 > **Note:**
 > In the examples above long commands are broken to several lines for readability using the Bash (` \ `) or CMD (`^`) line continuation.  
+
+## Helper scripts
+The 3DCityDB PostGIS Docker image comes with helper scripts for *adding*, *removing* and *purging* a 3DcityDB instance inside a running container. The scripts can be applied from outside the container using the [docker exec](https://docs.docker.com/engine/reference/commandline/exec/) command. When using the utilities from outside a container, the container name or ID (`CONTAINER`) needs to be known. To get an interactive shell inside your container run:
+```bash
+docker exec -it CONTAINER bash
+```
+
+##### Add/Create a 3DCityDB instance
+The `addcitydb` utility creates a new 3DCityDB instance inside a container. The tool requires three parameters, a *database name* (`DBNAME`) and the `SRID` and `SRSNAME` of the spatial reference system of the database instance to create.
+```bash
+addcitydb DBNAME SRID SRSNAME   # Usage
+# When inside container with interactive shell
+addcitydb myNew-Database 31468 urn:adv:crs:DE_DHDN_3GK4*DE_DHN92_NH 
+# From outside the container (docker host shell)
+docker exec -it CONTAINER addcitydb myNew-Database 31468 urn:adv:crs:DE_DHDN_3GK4*DE_DHN92_NH
+```
+
+##### Remove a 3DCityDB instance
+The `dropcitydb` utility removes the 3DcityDB schema (and all data) from an existing 3DCityDB instance inside a container. Use with care! The database is **not** removed. The only required parameter is the database name (`DBNAME`). 
+```bash
+dropcitydb DBNAME   # Usage
+# When inside container with interactive shell
+dropcitydb my-Database
+# From outside the container (docker host shell)
+docker exec -it CONTAINER dropcitydb myNew-Database
+```
+
+##### Remove a 3DCityDB instance (entire database)
+The `purgedb` utility removes a database from the PostgreSQL server running inside the container. **All data and settings (e.g. user rights) of this database are lost.** Use with care! The only required parameter is the database name (`DBNAME`).
+```bash
+purgedb DBNAME   # Usage
+# When inside container with interactive shell
+purgedb my-Database
+# From outside the container (docker host shell)
+docker exec -it CONTAINER purgedb myNew-Database
+```
 
 ## Data storage and persistence
 When you are new to Docker, the way data is managed and stored is very likely to be different from what you expect.

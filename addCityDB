@@ -7,7 +7,7 @@ set -e;
 # 3 args passed?
 if [ "$#" -ne 3 ]; then
   printf "Error: Wrong number of arguments passed.\n"
-  echo "Usage: addCityDB.sh CITYDBNAME SRID SRSNAME" >&2
+  echo "Usage: addcitydb CITYDBNAME SRID SRSNAME" >&2
   exit 1
 fi
 

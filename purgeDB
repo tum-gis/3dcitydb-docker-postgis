@@ -1,5 +1,4 @@
 #!/bin/bash
-# Drop 3DCityDB ---------------------------------------------------------------
 
 # Print commands and their arguments as they are executed
 set -e;
@@ -7,7 +6,7 @@ set -e;
 # 1 args passed?
 if [ "$#" -ne 1 ]; then
   printf "Error: Wrong number of arguments passed.\n"
-  echo "Usage: dropCityDB.sh CITYDBNAME" >&2
+  echo "Usage: purgedb DBNAME" >&2
   exit 1
 fi
 
@@ -33,6 +32,6 @@ psql=( psql -v ON_ERROR_STOP=1 )
 
 # drop citydb
 echo
-echo "Dropping database $DBNAME ..."
-"${psql[@]}" -d "$DBNAME" -f /3dcitydb/DROP_DB.sql
-echo "Dropping database $DBNAME ... done!"
+echo "Purging database $DBNAME ..."
+echo "DROP DATABASE \"$DBNAME\";" | "${psql[@]}"
+echo "Purging database $DBNAME ... done!"

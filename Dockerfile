@@ -37,17 +37,17 @@ RUN mkdir -p /docker-entrypoint-initdb.d
 COPY ./3dcitydb.sh /docker-entrypoint-initdb.d/3dcitydb.sh
 COPY ./CREATE_DB.sql /3dcitydb/CREATE_DB.sql
 
-# add addCityDB.sh
-COPY ./addCityDB.sh /usr/local/bin/
-RUN ln -s usr/local/bin/addCityDB.sh / # backwards compat
-RUN chmod u+x /usr/local/bin/addCityDB.sh
+# add addCityDB
+COPY ./addcitydb /usr/local/bin/
+RUN ln -s usr/local/bin/addcitydb / # backwards compat
+RUN chmod u+x /usr/local/bin/addcitydb
 
-# add dropCityDB.sh
-COPY ./dropCityDB.sh /usr/local/bin/
-RUN ln -s usr/local/bin/dropCityDB.sh / # backwards compat
-RUN chmod u+x /usr/local/bin/dropCityDB.sh
+# add dropCityDB
+COPY ./dropcitydb /usr/local/bin/
+RUN ln -s usr/local/bin/dropcitydb / # backwards compat
+RUN chmod u+x /usr/local/bin/dropcitydb
 
 # add purgeDB.sh
-COPY ./purgeDB.sh /usr/local/bin/
-RUN ln -s usr/local/bin/purgeDB.sh / # backwards compat
-RUN chmod u+x /usr/local/bin/purgeDB.sh
+COPY ./purgedb /usr/local/bin/
+RUN ln -s usr/local/bin/purgedb / # backwards compat
+RUN chmod u+x /usr/local/bin/purgedb
