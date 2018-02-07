@@ -228,12 +228,16 @@ Your data will persistently reside in that directory until you remove it from th
 There may be cases where you do not want to store a container’s data on the host machine, but you also don’t want to write the data into the container’s writable layer, e.g. for performance or security reasons. An example might be a temporary data set, for instance temporary data required during a GIS workflow. To give the container access to the data without writing it anywhere permanently, you can use a tmpfs mount, which is only stored in the host machine’s memory (or swap, if memory is low). Following example shows how to run a 3DCityDB container with its data stored in the host system's main memory using a tmpfs mount.
 ```bash
 docker run -dit --name citydb-container -p 5432:5432 \
-    --tmpfs /var/lib/postgresql/data \
+    --tmpfs /pgtmpfs \
+    -e "PGDATA=/pgtmpfs" \
     -e "SRID=31468" \
     -e "SRSNAME=urn:adv:crs:DE_DHDN_3GK4*DE_DHN92_NH" \
   tumgis/3dcitydb-postgis
 ```
 Docker provides much more options when working with tmpfs mounts. Take a look the [docker tmpfs mount usage documentation](https://docs.docker.com/engine/admin/volumes/tmpfs/) for more insight.
+
+> **Note:**
+> *tmpfs* mounts only work on Linux containers, and not on Windows containers.  
 
 ### Data within the writable layer of the container
 It is possible to store data within the writable layer of a container, but there are some downsides:
