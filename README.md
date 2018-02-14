@@ -261,19 +261,22 @@ docker build -t 3dcitydb-postgis .
 ```
 
 ## Build parameters
-To build a Docker image with a specific *3DCityDB version* or a different *default database name* the [`docker build --build-arg`](https://docs.docker.com/engine/reference/commandline/build/) parameter can be used. The table below lists the currently available build parameters and their default values.
+To build a Docker image with a specific *3DCityDB version* or a different *default database name* the [`docker build --build-arg "ARGNAME=VALUE"`](https://docs.docker.com/engine/reference/commandline/build/) parameter can be used. The table below lists the currently available build arguments and their default values. If you are looking for an automated build process for several tags, take a look at [`build.sh`](https://github.com/tum-gis/3dcitydb-docker-postgis/blob/master/build.sh).
 
-| Parameter name         | Description                            | Default value     |
-|------------------------|----------------------------------------|-------------------|
-| citydb_version         | Version of the 3DCityDB                | *3.3.1*           |
-| citydb_default_db_name | Name of the database created at container startup, if not overwritten by CITYDBNAME environment variable. | *citydb* |
+| Parameter name         | Description                                               | Default value     |
+|------------------------|-----------------------------------------------------------|-------------------|
+| citydb_version         | Version of the 3DCityDB                                   | *3.3.1*           |
+| citydb_name            | Default name of the database created at container startup | *citydb*          |
+| postgres_password      | Default password of the PostgreSQL server                 | *postgres*        |
 
 #### Build example:
+The example below builds a Docker image named *3dcitydb-postgis* tagged as *v3.0.0* from the *Dockerfile* in the current working directory using the given *build arguments*.
 ```bash
-docker build \
+docker build -t 3dcitydb-postgis:v3.0.0 \
     --build-arg "citydb_version=3.0.0" \
     --build-arg "citydb_default_db_name=my3DCityDB" \
-    -t 3dcitydb-postgis .
+    --build-arg "postgres_password=myNewDefaultPassword" \
+    .
 ```
   
 ## Quick reference

@@ -21,8 +21,8 @@ RUN set -x && apt-get update \
 # Setup 3DCityDB ##############################################################
 ARG citydb_version=3.3.1
 ENV CITYDBVERSION=${citydb_version}
-ARG citydb_default_db_name="citydb"
-ENV CITYDBNAME=${citydb_default_db_name}
+ARG citydb_name="citydb"
+ENV CITYDBNAME=${citydb_name}
 
 # make sure a default password is set
 ARG postgres_password=postgres
