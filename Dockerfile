@@ -11,11 +11,12 @@ MAINTAINER Bruno Willenborg, Chair of Geoinformatics, Technical University of Mu
 ENV POSTGIS_MAJOR 2.4
 ENV POSTGIS_VERSION 2.4.3+dfsg-2.pgdg90+1
 
-RUN apt-get update \
+RUN set -x && apt-get update \
   && apt-get install -y --no-install-recommends \
     postgresql-$PG_MAJOR-postgis-$POSTGIS_MAJOR=$POSTGIS_VERSION \
     postgresql-$PG_MAJOR-postgis-$POSTGIS_MAJOR-scripts=$POSTGIS_VERSION \
-    postgis=$POSTGIS_VERSION
+    postgis=$POSTGIS_VERSION \
+  && rm -rf /var/lib/apt/lists/*
 
 # Setup 3DCityDB ##############################################################
 ARG citydb_version=3.3.1
@@ -27,10 +28,11 @@ ENV CITYDBNAME=${citydb_default_db_name}
 ARG postgres_password=postgres
 ENV POSTGRES_PASSWORD=${postgres_password}
 
-RUN set -x \
+RUN set -x && apt-get update \
   && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* \
   && mkdir -p 3dcitydb && wget "https://github.com/3dcitydb/3dcitydb/archive/v${CITYDBVERSION}.tar.gz" -O 3dcitydb.tar.gz \
-  && tar -C 3dcitydb -xzvf 3dcitydb.tar.gz 3dcitydb-$CITYDBVERSION/PostgreSQL/SQLScripts --strip=3  && rm 3dcitydb.tar.gz \
+  && tar -C 3dcitydb -xzvf 3dcitydb.tar.gz 3dcitydb-$CITYDBVERSION/PostgreSQL/SQLScripts --strip=3 \
+  && rm 3dcitydb.tar.gz \
   && apt-get purge -y --auto-remove ca-certificates wget
 
 RUN mkdir -p /docker-entrypoint-initdb.d
