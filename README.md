@@ -7,7 +7,7 @@ This repo contains a Dockerfile to create a [3D City Database (3DCityDB) v3.3.1]
 
 #### Image versions/tags
 * **latest** - Latest stable version based on latest version of the 3DCityDB. Built from [master](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/master) branch.
-* **devel** - Development version containing latest features. Based on latest version of the 3DCityDB. Built from [devel](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/devel) branch.
+* **devel** - Development version containing latest features. Based on latest version of the 3DCityDB. Built from [devel](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/devel) branch. **Note:** Visit the [Github page of the devel](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/devel) branch for the documentation of the latest features.
 * **v3.0.0**, **v3.1.0**, **v3.2.0**, **v3.3.0**, **v3.3.1** - Same content as **latest** image, but built with a specific version (**vX.X.X**) of the 3DCityDB. Built from the branches named like the versions.
 
 > **Note:** Everything in this repo is in development stage. 
@@ -283,12 +283,12 @@ docker build -t 3dcitydb-postgis:v3.0.0 \
 * Where to get help:  
   [the Docker Community Forums](https://forums.docker.com/), [the docker Community Stack](https://blog.docker.com/2016/11/introducing-docker-community-directory-docker-community-slack/), [Stack Overflow](https://stackoverflow.com/search?tab=newest&q=docker)
 * Where to file issues:  
-  [tum-gis/3dcitydb-docker](https://github.com/tum-gis/3dcitydb-docker/issues)
+  [tum-gis/3dcitydb-docker-postgis](https://github.com/tum-gis/3dcitydb-docker-postgis/issues)
 * Maintained by:  
   [Bruno Willenborg, Chair of Geoinformatics, Technical University of Munich (TUM)](https://www.gis.bgu.tum.de/)
 * Supported architectures:  
   `amd64` 
-  If you require another architecture, please file an issue [here](https://github.com/tum-gis/3dcitydb-docker/issues), if possible, I will build the image for you quickly.
+  If you require another architecture, please file an issue [here](https://github.com/tum-gis/3dcitydb-docker-postgis/issues), if possible, I will build the image for you quickly.
 * Supported Docker versions:  
   The 3DCityDB Docker image has been tested with:
   * Ubuntu x64 16.04: Docker v1.13.1
