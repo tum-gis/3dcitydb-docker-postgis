@@ -11,7 +11,7 @@ This repo contains a Dockerfile to create a [3D City Database (3DCityDB) v3.3.1]
 * **v3.0.0**, **v3.1.0**, **v3.2.0**, **v3.3.0**, **v3.3.1** - Same content as **latest** image, but built with a specific version (**vX.X.X**) of the 3DCityDB. Built from the branches named like the versions.
 
 > **Note:** Everything in this repo is in development stage. 
-> If you experience any problems or have a suggestion/improvement please let me know by creating an issue [here](https://github.com/tum-gis/3dcitydb-docker/issues).
+> If you experience any problems or have a suggestion/improvement please let me know by creating an issue [here](https://github.com/tum-gis/3dcitydb-docker-postgis/issues).
 
 ## What is the 3D City Database?
 The award winning 3D City Database is a free geo database to store, represent, and manage virtual 3D city models on top of a standard spatial relational database. The database schema implements the CityGML standard with semantically rich and multi-scale urban objects facilitating complex analysis tasks, far beyond visualization. 3DCityDB is in productive and commercial use for more than 10 years in many places around the world. It is also employed in numerous research projects related to 3D city models. 
@@ -113,7 +113,7 @@ docker run -it --name citydb-container -p 1234:5432 \
   tumgis/3dcitydb-postgis bash
 
 # run container in detached (background) mode
-docker run -d --name citydb-container -p 1234:5432 \
+docker run -dit --name citydb-container -p 1234:5432 \
     -e "CITYDBNAME=mycitydb" \
     -e "SRID=31468" \
     -e "SRSNAME=urn:adv:crs:DE_DHDN_3GK4*DE_DHN92_NH" \
