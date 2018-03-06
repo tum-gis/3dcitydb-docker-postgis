@@ -86,14 +86,14 @@ IF defined num (
   goto:q2
 )
 
-IF NOT %var% GTR 0 (
+IF NOT %var% GTR 1024 (
   echo.
-  echo PORT must be numeric and between 1 and 65535. Please retry.
+  echo PORT must be numeric and between 1025 and 65535. Please retry.
   goto:q2
 ) 
 IF NOT %var% LEQ 65535 (
   echo.
-  echo PORT must be numeric and between 1 and 65535. Please retry.
+  echo PORT must be numeric and between 1025 and 65535. Please retry.
   goto:q2
 ) 
 
@@ -235,7 +235,7 @@ goto:end
 
 :fail
 echo.
-echo Oh no! Something went wrong. Inspect the error message above to get a hint on what happend.
+echo Oh no! Something went wrong. Inspect the error message above to get a clue on what happend.
 echo.
 echo ########################################################################################
 echo.

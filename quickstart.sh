@@ -66,13 +66,9 @@ while [ "$test" = "0" ]; do
   echo 'Please enter a PORT for the 3DCityDB PostGIS Docker container to listen on. Press ENTER to use default.'
   read -p "(default=5432): " PORT
   PORT=${PORT:-5432}
-
-  if [ "$PORT" = "5432" ]; then
-    break;
-  fi
   
-  if ( [[ ! $PORT =~ $re ]] ) || ( [ "$PORT" -lt "1" ] || [ "$PORT" -gt "65535" ] ); then
-    echo "PORT must be numeric and between 1 and 65535. Please retry."  
+  if ( [[ ! $PORT =~ $re ]] ) || ( [ "$PORT" -lt "1024" ] || [ "$PORT" -gt "65535" ] ); then
+    echo "PORT must be numeric and between 1025 and 65535. Please retry."  
   else 
     test=1
   fi
@@ -104,10 +100,6 @@ while [ "$test" = "0" ]; do
   echo 'Please enter the SRID fof the spatial reference system of the 3DCityDB. Press ENTER to use default.'
   read -p "(default SRS=WGS84, SRID=4326): " SRID
   SRID=${SRID:-4326}
-
-  if [ "$SRID" = "4326" ]; then
-    break;
-  fi
   
   if [[ ! $SRID =~ $re ]]; then
     echo "SRID must be numeric. Please retry."  
@@ -183,7 +175,7 @@ if [ "$?" = "0" ]; then
 else
   # no, something bad happened
   echo
-  echo 'Oh no! Something went wrong. Inspect the error message above to get a hint on what happend.'
+  echo 'Oh no! Something went wrong. Inspect the error message above to get a clue on what happend.'
   echo
   echo '########################################################################################'
   echo
