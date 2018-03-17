@@ -10,6 +10,13 @@ This repo contains a Dockerfile to create a [3D City Database (3DCityDB) v3.3.1]
 * **devel** - Development version containing latest features. Based on latest version of the 3DCityDB. Built from [devel](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/devel) branch. **Note:** Visit the [Github page of the devel](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/devel) branch for the documentation of the latest features.
 * **v3.0.0**, **v3.1.0**, **v3.2.0**, **v3.3.0**, **v3.3.1** - Same content as **latest** image, but built with a specific version (**vX.X.X**) of the 3DCityDB. Built from the branches named like the versions.
 
+Use `docker pull tumgis/3dcitydb-postgis:TAG` to download the latest version of the image with the specified `TAG` to your system.
+
+#### More 3DCityDB Docker Images
+Check out the Docker images for the *3D City Database Web Feature Service (WFS)* and the *3D City Database Web-Map-Client* too:
+* [3DCityDB Web Feature Service (WFS) image](https://github.com/tum-gis/3dcitydb-wfs-docker/)
+* [3DCityDB Web-Map-Client image](https://github.com/tum-gis/3dcitydb-web-map-docker/)
+
 > **Note:** Everything in this repo is in development stage. 
 > If you experience any problems or have a suggestion/improvement please let me know by creating an issue [here](https://github.com/tum-gis/3dcitydb-docker-postgis/issues).
 
@@ -19,22 +26,20 @@ The award winning 3D City Database is a free geo database to store, represent, a
 The 3D City Database comes with tools for easy data exchange and coupling with cloud services. The 3D City Database content can be directly exported in KML, COLLADA, and glTF formats for the visualization in a broad range of applications like Google Earth, ArcGIS, and the WebGL-based Cesium Virtual Globe.
 
 ![3DCityDB](https://www.3dcitydb.org/3dcitydb/fileadmin/default/templates/images/logo.jpg "3DCityDB logo")
-> [3DCityDB Official Homepage - https://www.3dcitydb.net](https://www.3dcitydb.net/)  
-> [3DCityDB Github - https://github.com/3dcitydb](https://github.com/3dcitydb)  
-> [CityGML - https://www.citygml.org](https://www.citygml.org/)  
-> [3DCityDB and CityGML Hands-on Tutorial - https://www.gis.bgu.tum.de/en/projects/3dcitydb](https://www.gis.bgu.tum.de/en/projects/3dcitydb/#c1425)
+> [3DCityDB Official Homepage](https://www.3dcitydb.net/)  
+> [3DCityDB Github](https://github.com/3dcitydb)  
+> [CityGML](https://www.citygml.org/)  
+> [3DCityDB and CityGML Hands-on Tutorial](https://www.gis.bgu.tum.de/en/projects/3dcitydb/#c1425)
 
 ## Quick start
-This section describes how to get a 3DcityDB PostGIS Docker container running as quick and easy as possible.
+This section describes how to get a 3DCityDB PostGIS Docker container running as quick and easy as possible.
 1. Install Docker on your system.
    This step is mandatory. Downloads and detailed instructions for various operating systems can be found here: [https://docs.docker.com/install/](https://docs.docker.com/install/)
-2. Download (Rightclick -> Save target as) and execute one of the *Quickstart scripts*.  
-   The Quickstart scripts are meant for Docker newcomers and convenience use. They will guide you through the process of setting up a 3DCityDB Docker container. There is no previous knowledge on Docker required! The scripts will download the 3DCityDB PostGIS Docker image for form [DockerHub](https://hub.docker.com/r/tumgis/3dcitydb-postgis/) for you and interactively request all required configuration.
+2. Download (Rightclick -> Save target as) and execute a *Quickstart scripts*.  
+   The Quickstart scripts are meant for Docker newcomers and convenient usage of the images. They will guide you through the process of setting up a 3DCityDB Docker container. There is no previous knowledge on Docker required! The scripts will download the 3DCityDB PostGIS Docker image for form [DockerHub](https://hub.docker.com/r/tumgis/3dcitydb-postgis/) for you and interactively request all required configuration.
   * [quickstart.bat](https://github.com/tum-gis/3dcitydb-docker-postgis/blob/devel/quickstart.bat) for **Windows** operating systems
-  *  [quickstart.sh](https://github.com/tum-gis/3dcitydb-docker-postgis/blob/devel/quickstart.sh) for **Linux** based operating systems
+  * [quickstart.sh](https://github.com/tum-gis/3dcitydb-docker-postgis/blob/devel/quickstart.sh) for **Linux** based operating systems
 
-For detailed usage instructions and examples go to the *How to use this image* section.
-  
 ## How to use this image
 In this section you will find information on how to work with the 3DCityDB Docker image. For a comprehensive description of all *environment variables* and *usage examples* look further below. If you are new to Docker, I recommend reading the section on *data storage and persistence*. For building your own image scroll down to the *build* section at the bottom.
 
@@ -154,7 +159,7 @@ docker run -d --name citydb-container -p 1234:5432^
 > In the examples above long commands are broken to several lines for readability using the Bash (` \ `) or CMD (`^`) line continuation.  
 
 ## Helper scripts
-The 3DCityDB PostGIS Docker image comes with helper scripts for *adding*, *removing* and *purging* a 3DcityDB instance inside a running container. The scripts can be applied from outside the container using the [docker exec](https://docs.docker.com/engine/reference/commandline/exec/) command. When using the utilities from outside a container, the container name or ID (`CONTAINER`) needs to be known. To get an interactive shell inside your container run:
+The 3DCityDB PostGIS Docker image comes with helper scripts for *adding*, *removing* and *purging* a 3DCityDB instance inside a running container. The scripts can be applied from outside the container using the [docker exec](https://docs.docker.com/engine/reference/commandline/exec/) command. When using the utilities from outside a container, the container name or ID (`CONTAINER`) needs to be known. To get an interactive shell inside your container run:
 ```bash
 docker exec -it CONTAINER bash
 ```
@@ -170,7 +175,7 @@ docker exec -it CONTAINER addcitydb myNew-Database 31468 urn:adv:crs:DE_DHDN_3GK
 ```
 
 ##### Remove a 3DCityDB instance
-The `dropcitydb` utility removes the 3DcityDB schema (and all data) from an existing 3DCityDB instance inside a container. Use with care! The database is **not** removed. The only required parameter is the database name (`DBNAME`). 
+The `dropcitydb` utility removes the 3DCityDB schema (and all data) from an existing 3DCityDB instance inside a container. Use with care! The database is **not** removed. The only required parameter is the database name (`DBNAME`). 
 ```bash
 dropcitydb DBNAME   # Usage
 # When inside container with interactive shell
