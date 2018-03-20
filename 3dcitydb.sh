@@ -26,7 +26,7 @@ if [ "$POSTGRES_PASSWORD" = "postgres" ] ; then
   echo "   Consider changing the default password for security reasons!"
   echo
   echo "   To change the default POSTGRES_PASSWORD, use the docker run \"-e\" switch."
-  echo "   Example: \"docker run -e \"POSTGRES_PASSWORD=newuser\" 3dcitydb\""
+  echo "   Example: \"docker run -e \"POSTGRES_PASSWORD=newuser\" tumgis/3dcitydb-postgis\""
   echo "################################################################################"
 fi
 
@@ -101,12 +101,12 @@ cat <<EOF
 # PostgreSQL/PostGIS -----------------------------------------------------------
 #   PostgreSQL version  $PG_MAJOR - $PG_VERSION
 #   PostGIS version     $POSTGIS_MAJOR - $POSTGIS_VERSION
-#     PG User           $POSTGRES_USER
-#     PG Password       $POSTGRES_PASSWORD
+#     PG User           $PGUSER
+#     PG Password       $PGPASSWORD
 #
 # 3DCityDB ---------------------------------------------------------------------
 #   3DCityDB version  $CITYDBVERSION
-#     version info    https://github.com/3dcitydb/3dcitydb/releases/tag/v$CITYDBVERSION
+#     version info    https://github.com/3dcitydb/3dcitydb/tree/${CITYDBVERSION}
 #   DBNAME            $CITYDBNAME
 #   SRID              $SRID
 #   SRSNAME           $SRSNAME
