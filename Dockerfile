@@ -3,21 +3,16 @@
 #   GitHub              https://github.com/3dcitydb
 ###############################################################################
 # Base image
-FROM postgres:10
+ARG baseimage_tag='10'
+FROM postgres:${baseimage_tag}
 # Maintainer ##################################################################
 MAINTAINER Bruno Willenborg, Chair of Geoinformatics, Technical University of Munich (TUM) <b.willenborg@tum.de>
 
 # Setup 3DCityDB ##############################################################
-ENV POSTGIS_MAJOR 2.4
-ENV POSTGIS_VERSION 2.4.4+dfsg-1.pgdg90+1
+ENV POSTGIS_MAJOR='2.4'
+ENV POSTGIS_VERSION='2.4.4+dfsg-1.pgdg90+1'
 ARG citydb_version='v3.3.1'
 ENV CITYDBVERSION=${citydb_version}
-ARG citydb_name='citydb'
-ENV CITYDBNAME=${citydb_name}
-
-# make sure a default password is set
-ARG postgres_password=postgres
-ENV POSTGRES_PASSWORD=${postgres_password}
 
 RUN set -x \
   && RUNTIME_PACKAGES="postgresql-$PG_MAJOR-postgis-$POSTGIS_MAJOR=$POSTGIS_VERSION \

@@ -270,17 +270,15 @@ To build a Docker image with a specific *3DCityDB version* or a different *defau
 
 | Parameter name         | Description                                               | Default value     |
 |------------------------|-----------------------------------------------------------|-------------------|
-| citydb_version         | Version of the 3DCityDB                                   | *3.3.1*           |
-| citydb_name            | Default name of the database created at container startup | *citydb*          |
-| postgres_password      | Default password of the PostgreSQL server                 | *postgres*        |
+| baseimage_tag          | Version/tag of the base image to use (use with caution!!) | *10*              |
+| citydb_version         | Version of the 3DCityDB                                   | *v3.3.1*           |
 
 #### Build example:
 The example below builds a Docker image named *3dcitydb-postgis* tagged as *v3.0.0* from the *Dockerfile* in the current working directory using the given *build arguments*.
 ```bash
-docker build -t 3dcitydb-postgis:v3.0.0 \
+docker build -t 3dcitydb-postgis:pg9.6-v3.0.0 \
+    --build-arg "baseimage_tag=9.6" \
     --build-arg "citydb_version=3.0.0" \
-    --build-arg "citydb_default_db_name=my3DCityDB" \
-    --build-arg "postgres_password=myNewDefaultPassword" \
     .
 ```
   

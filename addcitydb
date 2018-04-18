@@ -66,8 +66,6 @@ cat <<EOF
 # PostgreSQL/PostGIS -----------------------------------------------------------
 #   PostgreSQL version  $PG_MAJOR - $PG_VERSION
 #   PostGIS version     $POSTGIS_MAJOR - $POSTGIS_VERSION
-#     PG User           $PGUSER
-#     PG Password       $PGPASSWORD
 #
 # 3DCityDB ---------------------------------------------------------------------
 #   3DCityDB version  $CITYDBVERSION

@@ -18,7 +18,9 @@ if [ -z ${POSTGRES_USER+x} ] || [ "$POSTGRES_USER" = "postgres" ] ; then
   echo "################################################################################"
 fi
 
-if [ "$POSTGRES_PASSWORD" = "postgres" ] ; then
+# make sure a default non empty password is set
+if [ -z ${POSTGRES_PASSWORD+x} ] || [ "$POSTGRES_PASSWORD" = "postgres" ] || [ "$POSTGRES_PASSWORD" = "" ] ; then
+  export POSTGRES_PASSWORD="postgres";
   echo
   echo "!!! WARNING !!! ################################################################"
   echo "   POSTGRES_PASSWORD is at its default setting."
@@ -38,7 +40,7 @@ export PGPASSWORD="$POSTGRES_PASSWORD"
 echo
 echo "# Setting up tumgis/3dcitydb-postgis environment ... ###########################"
 if [ -z ${CITYDBNAME+x} ]; then
-  export CITYDBNAME="3dcitydb-docker";
+  export CITYDBNAME="citydb";
   echo "NOTE:"
   echo "   CITYDBNAME has not been set. Using default CITYDBNAME=${CITYDBNAME}."
   echo "   To change the default CITYDBNAME, use the docker run \"-e\" switch."
@@ -85,10 +87,10 @@ echo "Create PostGIS extensions in database $CITYDBNAME ...done!"
 
 # setup 3dcitydb
 echo
-echo "Setting up 3DcityDB version $CITYDBVERSION database schema in $CITYDBNAME ..."
+echo "Setting up 3DCityDB version $CITYDBVERSION database schema in $CITYDBNAME ..."
 cd /3dcitydb
 "${psql[@]}" -d "$CITYDBNAME" -f "../3dcitydb/CREATE_DB.sql" -v srsno="$SRID" -v srsname="$SRSNAME" > /dev/null
-echo "Setting up 3DcityDB version $CITYDBVERSION database schema in $CITYDBNAME ...done!"
+echo "Setting up 3DCityDB version $CITYDBVERSION database schema in $CITYDBNAME ...done!"
 echo
 echo "# Setting up 3DCityDB ... done! ################################################"
 
@@ -101,8 +103,6 @@ cat <<EOF
 # PostgreSQL/PostGIS -----------------------------------------------------------
 #   PostgreSQL version  $PG_MAJOR - $PG_VERSION
 #   PostGIS version     $POSTGIS_MAJOR - $POSTGIS_VERSION
-#     PG User           $PGUSER
-#     PG Password       $PGPASSWORD
 #
 # 3DCityDB ---------------------------------------------------------------------
 #   3DCityDB version  $CITYDBVERSION
