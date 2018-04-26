@@ -1,5 +1,5 @@
 ### News
-* Alpine linux image versions released!
+* Alpine Linux image versions released!
 
 # 3D City Database PostGIS Docker image
 This repo contains a Dockerfile to create a [3D City Database (3DCityDB) v3.3.1](https://github.com/3dcitydb) running on a [PostgreSQL v10.1](https://www.postgresql.org/) server with [PostGIS v2.4.3](https://postgis.net/). To get the 3DCityDB PostGIS Docker images visit the [tumgis/3dcitydb-postgis](https://hub.docker.com/r/tumgis/3dcitydb-postgis/) DockerHub page. To get things moving fast take a look the *Quick start* section.
@@ -8,11 +8,13 @@ This repo contains a Dockerfile to create a [3D City Database (3DCityDB) v3.3.1]
 * *Quickstart scripts* for convenience and Docker newcomers.
 * Helper scripts for *adding*, *removing* and *purging* a 3DCityDB instance inside a container.
 
-#### Image versions/tags
+#### Image versions (tags)
+The full list of all available image versions (tags) is available on [DockerCloud](https://cloud.docker.com/swarm/tumgis/repository/docker/tumgis/3dcitydb-postgis/tags) or [DockerHub](https://hub.docker.com/r/tumgis/3dcitydb-postgis/tags/).
+
 * **latest** - Latest stable version based on latest version of the 3DCityDB. Built from [master](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/master) branch.
-* **devel** - Development version containing latest features. Based on latest version of the 3DCityDB. Built from [devel](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/devel) branch. **Note:** Visit the [Github page of the devel](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/devel) branch for the documentation of the latest features.
-* **v3.0.0**, **v3.1.0**, **v3.2.0**, **v3.3.0**, **v3.3.1** - Same content as **latest** image, but built with a specific version (**vX.X.X**) of the 3DCityDB. Built from the branches named like the versions.
-* **alpine** - Lightweight Alpine linux versions of all image version from above are available by appending **-alpine** to the tag. For instance: **v3.3.1** -> **v3.3.1-alpine**
+* **devel-latest**, **devel-latest-alpine** - Development version containing latest features. Based on latest version of the 3DCityDB. Built from [devel](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/devel) branch. **Note:** Visit the [Github page of the devel](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/devel) branch for the documentation of the latest features.
+* **v3.0.0**, **v3.1.0**, **v3.2.0**, **v3.3.0**, **v3.3.1** - Same content as **latest** image, but built with a specific version (**vX.X.X**) of the 3DCityDB. Built from master branch.
+* **alpine** - Lightweight Alpine Linux image versions are available for all above listed images by appending **-alpine** to the tag. For instance, **v3.3.1** -> **v3.3.1-alpine**.
 
 Use `docker pull tumgis/3dcitydb-postgis:TAG` to download the latest version of the image with the specified `TAG` to your system. For instance, use `docker pull tumgis/3dcitydb-postgis:latest` or `docker pull tumgis/3dcitydb-postgis:latest-alpine` to pull the latest Debian or Alpine image versions.
 
