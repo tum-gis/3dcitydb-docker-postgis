@@ -2,10 +2,10 @@
 * Alpine Linux image versions released!
 
 # 3D City Database PostGIS Docker image
-This repo contains a Dockerfile to create a [3D City Database (3DCityDB) v3.3.1](https://github.com/3dcitydb) running on a [PostgreSQL v10.1](https://www.postgresql.org/) server with [PostGIS v2.4.3](https://postgis.net/). To get the 3DCityDB PostGIS Docker images visit the [tumgis/3dcitydb-postgis](https://hub.docker.com/r/tumgis/3dcitydb-postgis/) DockerHub page. To get things moving fast take a look the *Quick start* section.
+This repo contains a Dockerfile to create a [3D City Database (3DCityDB) v3.3.1](https://github.com/3dcitydb) running on a [PostgreSQL v10.3](https://www.postgresql.org/) server with [PostGIS v2.4.4](https://postgis.net/). To get the 3DCityDB PostGIS Docker images visit the [tumgis/3dcitydb-postgis](https://hub.docker.com/r/tumgis/3dcitydb-postgis/) DockerHub page. To get things moving fast take a look the *Quick start* section.
 
 #### Special features
-* *Quickstart scripts* for convenience and Docker newcomers.
+* *Quickstart scripts* for interactive container creation for convenience and Docker newcomers.
 * Helper scripts for *adding*, *removing* and *purging* a 3DCityDB instance inside a container.
 
 #### Image versions (tags)
