@@ -21,9 +21,12 @@ RUN set -ex \
   && apk add --no-cache --virtual .build-deps \
       autoconf automake g++ json-c-dev \
       libtool libxml2-dev make perl \
+  && apk add --no-cache --virtual .crypto-rundeps \
+      --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
+      libressl2.7-libcrypto \
   && apk add --no-cache --virtual .build-deps-testing \
       --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-      gdal-dev geos-dev proj4-dev protobuf-c-dev \
+      geos-dev gdal-dev proj4-dev protobuf-c-dev \
   && cd postgis_temp \
   && ./autogen.sh \
   && ./configure && make && make install \
