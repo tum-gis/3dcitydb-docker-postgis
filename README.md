@@ -285,7 +285,7 @@ The example below builds a Docker image named *3dcitydb-postgis* tagged as *v3.0
 ```bash
 docker build -t 3dcitydb-postgis:pg9.6-v3.0.0 \
     --build-arg "baseimage_tag=9.6" \
-    --build-arg "citydb_version=3.0.0" \
+    --build-arg "citydb_version=v3.0.0" \
     .
 ```
   
