@@ -61,7 +61,7 @@ Check out the Docker images for the *3D City Database Web Feature Service (WFS)*
 
 The full list of all available image versions (tags) is available on [DockerCloud](https://cloud.docker.com/swarm/tumgis/repository/docker/tumgis/3dcitydb-postgis/tags) or [DockerHub](https://hub.docker.com/r/tumgis/3dcitydb-postgis/tags/).
 
-* **latest**, **alpine-latest** - Latest stable version based on latest version of the 3DCityDB. Built from [master](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/master) branch.
+* **latest**, **alpine** - Latest stable version based on latest version of the 3DCityDB. Built from [master](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/master) branch.
 * **devel**, **devel-alpine** - Development version containing latest features. Based on latest release of the 3DCityDB. Built from [devel](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/devel) branch. **Note:** Visit the [Github page of the devel](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/devel) branch for the documentation of the latest features.
 * **v3.0.0**, **v3.1.0**, **v3.2.0**, **v3.3.0**, **v3.3.1**, **v4.0.0**- Same content as **latest** image, but built with a specific version (**vX.X.X**) of the 3DCityDB. Built from master branch.
 * **alpine** - Lightweight Alpine Linux image versions are available for all above listed images by appending **-alpine** to the tag. For instance, **v3.3.1** -> **v3.3.1-alpine**.
