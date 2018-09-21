@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # 3DCityDB v3.x.x -------------------------------------------------------------
 declare -a citydb_versions=("v3.0.0" "v3.1.0" "v3.2.0" "v3.3.0" "v3.3.1")
