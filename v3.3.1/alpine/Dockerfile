@@ -20,8 +20,12 @@ ENV CITYDBVERSION=${citydb_version}
 
 # Setup fetch deps
 RUN set -ex && \
-  apk update && \
-  apk add --no-cache --virtual .fetch-deps tar openssl git
+ apk update && \
+ apk add --no-cache --virtual .fetch-deps tar openssl git
+
+ENV ALPINE_MIRROR "http://dl-cdn.alpinelinux.org/alpine"
+RUN echo "${ALPINE_MIRROR}/edge/main" >> /etc/apk/repositories
+RUN apk add --update libressl2.7-libcrypto
 
 # Create folders
 RUN set -ex && \
