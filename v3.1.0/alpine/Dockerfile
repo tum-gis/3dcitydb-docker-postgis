@@ -13,7 +13,7 @@ LABEL maintainer.organization="Chair of Geoinformatics, Technical University of 
 LABEL source.repo="https://github.com/tum-gis/3dcitydb-docker-postgis"
 
 # Setup PostGIS and 3DCityDB ##################################################
-ARG postgis_version='2.4.4'
+ARG postgis_version='2.5.1'
 ENV POSTGIS_VERSION=${postgis_version}
 ARG citydb_version='v3.1.0'
 ENV CITYDBVERSION=${citydb_version}
