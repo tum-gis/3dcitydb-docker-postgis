@@ -45,8 +45,9 @@ RUN set -ex && \
   apk add --no-cache --virtual .crypto-rundeps \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
     libressl2.7-libcrypto && \
-  apk add --no-cache --virtual .build-deps-testing \
+  apk add --no-cache --virtual .build-deps-edge \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
     geos-dev gdal-dev proj4-dev protobuf-c-dev
 
 # Build PostGIS
@@ -65,7 +66,7 @@ RUN set -ex && \
 
 # Cleanup
 RUN set -ex && \
-  apk del .fetch-deps .build-deps .build-deps-testing && \
+  apk del .fetch-deps .build-deps .build-deps-edge && \
   rm -rf  postgis_temp 3dcitydb_temp
 
 # Copy scripts
