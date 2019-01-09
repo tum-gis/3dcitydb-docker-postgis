@@ -11,6 +11,7 @@ To get started immediately go to the [quick start](#quick-start) section.
 
 * Current build status: [![Build Status](https://img.shields.io/travis/tum-gis/3dcitydb-docker-postgis/master.svg?label=master)](https://travis-ci.org/tum-gis/3dcitydb-docker-postgis) [![Build Status](https://img.shields.io/travis/tum-gis/3dcitydb-docker-postgis/devel.svg?label=devel)](https://travis-ci.org/tum-gis/3dcitydb-docker-postgis#devel)
 
+* 2019/01 - 3DCityDB v4.0.1 now supported.
 * 2018/09 - 3DCityDB v4.0.0 now supported.
 * 2018/03 - Alpine Linux image versions released!
 
@@ -63,7 +64,7 @@ The full list of all available image versions (tags) is available on [DockerClou
 
 * **latest**, **alpine** - Latest stable version based on latest version of the 3DCityDB. Built from [master](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/master) branch.
 * **devel**, **devel-alpine** - Development version containing latest features. Based on latest release of the 3DCityDB. Built from [devel](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/devel) branch. **Note:** Visit the [Github page of the devel](https://github.com/tum-gis/3dcitydb-docker-postgis/tree/devel) branch for the documentation of the latest features.
-* **v3.0.0**, **v3.1.0**, **v3.2.0**, **v3.3.0**, **v3.3.1**, **v4.0.0**- Same content as **latest** image, but built with a specific version (**vX.X.X**) of the 3DCityDB. Built from master branch.
+* **v3.0.0**, **v3.1.0**, **v3.2.0**, **v3.3.0**, **v3.3.1**, **v4.0.0**, **v4.0.1** - Same content as **latest** image, but built with a specific version (**vX.X.X**) of the 3DCityDB. Built from master branch.
 * **alpine** - Lightweight Alpine Linux image versions are available for all above listed images by appending **-alpine** to the tag. For instance, **v3.3.1** -> **v3.3.1-alpine**.
 
 Use `docker pull tumgis/3dcitydb-postgis:TAG` to download the latest version of the image with the specified `TAG` to your system. For instance, use `docker pull tumgis/3dcitydb-postgis:latest` or `docker pull tumgis/3dcitydb-postgis:latest-alpine` to pull the latest Debian or Alpine image versions.
@@ -380,13 +381,6 @@ docker build -t 3dcitydb-postgis:pg9.6-v3.0.0 \
   [tum-gis/3dcitydb-docker-postgis](https://github.com/tum-gis/3dcitydb-docker-postgis/issues)
 * Maintained by:  
   [Bruno Willenborg, Chair of Geoinformatics, Technical University of Munich (TUM)](https://www.gis.bgu.tum.de/)
-* Supported architectures:  
-  `amd64`
-  If you require another architecture, please file an issue [here](https://github.com/tum-gis/3dcitydb-docker-postgis/issues), if possible, I will build the image for you quickly.
-* Supported Docker versions:  
-  The 3DCityDB Docker image has been tested with:
-  * Ubuntu x64 16.04: Docker v1.13.1
-  * Win10 x64 1709, Docker v17.12.0-ce
 
 ## License
 
