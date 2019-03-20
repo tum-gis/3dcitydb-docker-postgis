@@ -3,7 +3,7 @@
 #   GitHub              https://github.com/3dcitydb
 ###############################################################################
 # Base image
-ARG baseimage_tag='10-alpine'
+ARG baseimage_tag='11-alpine'
 FROM postgres:${baseimage_tag}
 
 # Labels ######################################################################
@@ -13,7 +13,7 @@ LABEL maintainer.organization="Chair of Geoinformatics, Technical University of 
 LABEL source.repo="https://github.com/tum-gis/3dcitydb-docker-postgis"
 
 # Setup PostGIS and 3DCityDB ##################################################
-ARG postgis_version='2.5.1'
+ARG postgis_version='2.5.2'
 ENV POSTGIS_VERSION=${postgis_version}
 ARG citydb_version='v4.0.0'
 ENV CITYDBVERSION=${citydb_version}
@@ -22,10 +22,6 @@ ENV CITYDBVERSION=${citydb_version}
 RUN set -ex && \
  apk update && \
  apk add --no-cache --virtual .fetch-deps tar openssl git
-
-ENV ALPINE_MIRROR "http://dl-cdn.alpinelinux.org/alpine"
-RUN echo "${ALPINE_MIRROR}/edge/main" >> /etc/apk/repositories
-RUN apk add --update libressl2.7-libcrypto
 
 # Create folders
 RUN set -ex && \
@@ -41,13 +37,12 @@ RUN set -ex && \
 # Setup build deps
 RUN set -ex && \  
   apk add --no-cache --virtual .build-deps \
-    autoconf automake g++ json-c-dev libtool libxml2-dev make perl && \
-  apk add --no-cache --virtual .crypto-rundeps \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
-    libressl2.7-libcrypto && \
+    --repository http://dl-cdn.alpinelinux.org/alpine/v3.9/main \
+    autoconf automake g++ json-c-dev libtool libxml2-dev make perl
+
+RUN set -ex && \
   apk add --no-cache --virtual .build-deps-edge \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
     geos-dev gdal-dev proj4-dev protobuf-c-dev
 
 # Build PostGIS
@@ -59,10 +54,7 @@ RUN set -ex && \
 
 # Setup runtime deps
 RUN set -ex && \
-  apk add --no-cache --virtual .postgis-rundeps json-c && \
-  apk add --no-cache --virtual .postgis-rundeps-testing \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    geos gdal proj4 protobuf-c
+  apk add --no-cache --virtual .postgis-rundeps json-c geos gdal proj4 protobuf-c
 
 # Cleanup
 RUN set -ex && \
