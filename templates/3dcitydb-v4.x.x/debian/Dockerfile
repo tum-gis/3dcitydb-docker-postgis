@@ -14,14 +14,13 @@ LABEL source.repo="https://github.com/tum-gis/3dcitydb-docker-postgis"
 
 # Setup PostGIS and 3DCityDB ##################################################
 ENV POSTGIS_MAJOR='2.5'
-ENV POSTGIS_VERSION='2.5.1+dfsg-1.pgdg90+1'
 ARG citydb_version='%%CITYDB_VERSION%%'
 ENV CITYDBVERSION=${citydb_version}
 
 ARG BUILD_PACKAGES='ca-certificates git'
-ARG RUNTIME_PACKAGES="postgresql-$PG_MAJOR-postgis-$POSTGIS_MAJOR=$POSTGIS_VERSION \
-    postgresql-$PG_MAJOR-postgis-$POSTGIS_MAJOR-scripts=$POSTGIS_VERSION \
-    postgis=$POSTGIS_VERSION"
+ARG RUNTIME_PACKAGES="postgresql-$PG_MAJOR-postgis-$POSTGIS_MAJOR \
+    postgresql-$PG_MAJOR-postgis-$POSTGIS_MAJOR-scripts \
+    postgis"
 
 # Setup build and runtime deps
 RUN set -x && \
