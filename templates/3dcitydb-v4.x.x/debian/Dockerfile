@@ -3,7 +3,7 @@
 #   GitHub              https://github.com/3dcitydb
 ###############################################################################
 # Base image
-ARG baseimage_tag='10'
+ARG baseimage_tag='11'
 FROM postgres:${baseimage_tag}
 
 # Labels ######################################################################
