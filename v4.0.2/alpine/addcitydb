@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+# Create 3DCityDB -------------------------------------------------------------
+
+# Print commands and their arguments as they are executed
+set -e;
+
+# psql should stop on error
+psql=( psql -v ON_ERROR_STOP=1 )
+
+# 3 args passed?
+if [ "$#" -ne 3 ]; then
+  printf "Error: Wrong number of arguments passed.\n"
+  echo "Usage: addcitydb CITYDBNAME SRID SRSNAME" >&2
+  exit 1
+fi
+
+# parse arguments
+CITYDBNAME="$1"
+SRID="$2"
+SRSNAME="$3"
+
+# Perform all actions as $POSTGRES_USER if set, else use default user = postgres
+if [ -z ${POSTGRES_USER+x} ]; then
+  export PGUSER=postgres;
+else
+  export PGUSER="$POSTGRES_USER";
+fi
+
+# Use $POSTGRES_PASSWORD if set, else use default password = postgres
+if [ -z ${POSTGRES_PASSWORD+x} ]; then
+  export PGPASSWORD=postgres;
+else
+  export PGPASSWORD="$POSTGRES_PASSWORD"
+fi
+
+# check if PGUSER and PGPASS are set
+echo
+echo "# Setting up 3DCityDB ... ######################################################"
+echo "Creating database $CITYDBNAME ..."
+echo "CREATE DATABASE \"$CITYDBNAME\";" | "${psql[@]}"
+echo "Creating database $CITYDBNAME ... done!"
+echo
+
+# Setup PostGIS extension
+echo "Create PostGIS extensions in database $CITYDBNAME ..."
+"${psql[@]}" --dbname="$CITYDBNAME" <<-'EOSQL'
+    CREATE EXTENSION IF NOT EXISTS postgis;
+EOSQL
+echo "Create PostGIS extensions in database $CITYDBNAME ...done!"
+echo
+
+# setup 3dcitydb
+echo "Setting up 3DcityDB version $CITYDBVERSION database schema in $CITYDBNAME ..."
+cd /3dcitydb
+"${psql[@]}" -d "$CITYDBNAME" -f "CREATE_DB.sql" -v srsno="$SRID" -v gmlsrsname="$SRSNAME" > /dev/null
+echo "Setting up 3DcityDB version $CITYDBVERSION database schema in $CITYDBNAME ...done!"
+echo
+echo "# Setting up 3DCityDB ... done! ################################################"
+
+# echo version info and maintainer
+cat <<EOF
+
+
+# 3DCityDB Docker PostGIS ######################################################
+#
+# PostgreSQL/PostGIS -----------------------------------------------------------
+#   PostgreSQL version  $PG_MAJOR - $PG_VERSION
+#   PostGIS version     $POSTGIS_VERSION
+#
+# 3DCityDB ---------------------------------------------------------------------
+#   3DCityDB version  $CITYDBVERSION
+#     version info    https://github.com/3dcitydb/3dcitydb/tree/${CITYDBVERSION}
+#   DBNAME            $CITYDBNAME
+#   SRID              $SRID
+#   SRSNAME           $SRSNAME
+#
+# Maintainer -------------------------------------------------------------------
+#   Bruno Willenborg
+#   Chair of Geoinformatics
+#   Department of Civil, Geo and Environmental Engineering
+#   Technical University of Munich (TUM)
+#   b.willenborg(at)tum.de
+#
+################################################################################
+
+EOF
