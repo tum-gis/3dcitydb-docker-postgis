@@ -30,7 +30,7 @@ do
 done
 
 # 3DCityDB v4.x.x -------------------------------------------------------------
-declare -a citydb_versions=("v4.0.0" "v4.0.1")
+declare -a citydb_versions=("v4.0.0" "v4.0.1" "v4.0.2")
 scripts='templates/3dcitydb.sh templates/addcitydb templates/dropcitydb templates/purgedb'
 
 for i in "${citydb_versions[@]}"
