@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# setup hooks located in current directory for a git repo ---------------------
+# setup hooks located in $REPOROOT/hooks folder of a git repo -----------------
 
 # git hooks
 hooks=('applypatch-msg' 'pre-applypatch' 'post-applypatch' 'pre-commit' \
@@ -20,9 +20,12 @@ if [ -d "$REPOROOT/.git" ]; then
 	echo
 	for i in "${hooks[@]}"
 	do
-    if [ -f "$i" ]; then
+		# Remove all hooks
+		rm -vf "$REPOROOT/.git/hooks/$i"
+		# Add hooks existing in $REPOROOT/hooks
+		if [ -f "$i" ]; then
 			printf "\t$i\t"
-			ln -sfv "$PWD/$i" "$REPOROOT/.git/hooks"
+			ln -sv "$PWD/$i" "$REPOROOT/.git/hooks"
 		fi
 	done
 	echo
