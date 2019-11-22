@@ -2,7 +2,7 @@
 
 # 3DCityDB v3.x.x -------------------------------------------------------------
 declare -a citydb_versions=("v3.0.0" "v3.1.0" "v3.2.0" "v3.3.0" "v3.3.1")
-scripts='templates/CREATE_DB.sql templates/3dcitydb.sh templates/addcitydb templates/dropcitydb templates/purgedb'
+scripts='templates/3dcitydb-v3.x.x/CREATE_DB.sql templates/3dcitydb.sh templates/addcitydb templates/dropcitydb templates/purgedb'
 
 for i in "${citydb_versions[@]}"
 do
