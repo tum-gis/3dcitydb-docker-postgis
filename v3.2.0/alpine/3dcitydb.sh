@@ -118,7 +118,7 @@ cat <<EOF
 # Maintainer -------------------------------------------------------------------
 #   Bruno Willenborg
 #   Chair of Geoinformatics
-#   Department of Civil, Geo and Environmental Engineering
+#   Department of Aerospace and Geodesy
 #   Technical University of Munich (TUM)
 #   b.willenborg(at)tum.de
 #
