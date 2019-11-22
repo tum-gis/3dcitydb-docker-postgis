@@ -3,7 +3,7 @@
 #   GitHub              https://github.com/3dcitydb
 ###############################################################################
 # Base image
-ARG baseimage_tag='11'
+ARG baseimage_tag='12'
 FROM postgres:${baseimage_tag}
 
 # Labels ######################################################################
@@ -13,7 +13,7 @@ LABEL maintainer.organization="Chair of Geoinformatics, Technical University of 
 LABEL source.repo="https://github.com/tum-gis/3dcitydb-docker-postgis"
 
 # Setup PostGIS and 3DCityDB ##################################################
-ENV POSTGIS_MAJOR='2.5'
+ENV POSTGIS_MAJOR='3'
 ARG citydb_version='v3.3.1'
 ENV CITYDBVERSION=${citydb_version}
 

@@ -85,6 +85,7 @@ echo
 echo "Create PostGIS extensions in database $CITYDBNAME ..."
 "${psql[@]}" -d "$CITYDBNAME" <<-EOSQL
     CREATE EXTENSION IF NOT EXISTS postgis;
+    CREATE EXTENSION IF NOT EXISTS postgis_raster;
 EOSQL
 echo "Create PostGIS extensions in database $CITYDBNAME ...done!"
 
