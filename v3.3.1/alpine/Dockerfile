@@ -67,6 +67,11 @@ RUN set -ex && \
   apk del .fetch-deps .build-deps .build-deps-edge && \
   rm -rf  postgis_temp 3dcitydb_temp
 
+# Copy scripts
+COPY CREATE_DB.sql /3dcitydb/
+COPY 3dcitydb.sh /docker-entrypoint-initdb.d/
+COPY addcitydb dropcitydb purgedb /usr/local/bin/
+
 # Set permissions
 RUN set -ex && \ 
   ln -s usr/local/bin/addcitydb / && \
