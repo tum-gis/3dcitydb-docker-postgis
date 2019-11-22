@@ -11,6 +11,7 @@ To get started immediately go to the [quick start](#quick-start) section.
 
 * Current build status: [![Build Status](https://img.shields.io/travis/tum-gis/3dcitydb-docker-postgis/master.svg?label=master)](https://travis-ci.org/tum-gis/3dcitydb-docker-postgis) [![Build Status](https://img.shields.io/travis/tum-gis/3dcitydb-docker-postgis/devel.svg?label=devel)](https://travis-ci.org/tum-gis/3dcitydb-docker-postgis#devel)
 
+* 2019/11 - Upgrade to Postgresql 12 and PostGIS 3.0
 * 2019/08 - 3DCityDB v4.0.2 now supported.
 * 2019/01 - 3DCityDB v4.0.1 now supported.
 * 2018/09 - 3DCityDB v4.0.0 now supported.
