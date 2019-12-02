@@ -37,7 +37,7 @@ RUN set -ex && \
 # Setup build deps
 RUN set -ex && \  
   apk add --no-cache --virtual .build-deps \
-    autoconf automake json-c-dev libtool libxml2-dev make perl
+    autoconf automake clang-dev json-c-dev libtool libxml2-dev llvm8 make perl
 
 RUN set -ex && \
   apk add --no-cache --virtual .build-deps-edge \
