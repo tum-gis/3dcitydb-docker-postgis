@@ -41,8 +41,8 @@ RUN set -ex && \
 
 RUN set -ex && \
   apk add --no-cache --virtual .build-deps-edge \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
     g++ geos-dev gdal-dev proj-dev protobuf-c-dev
 
 # Build PostGIS
@@ -54,12 +54,13 @@ RUN set -ex && \
 
 # Setup runtime deps
 RUN set -ex && \
-  apk add --no-cache --virtual .postgis-rundeps json-c
+  apk add --no-cache --virtual .postgis-rundeps \
+    json-c
 
 RUN set -ex && \  
   apk add --no-cache --virtual .postgis-rundeps-edge \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
     geos gdal proj protobuf-c libstdc++
 
 # Cleanup
