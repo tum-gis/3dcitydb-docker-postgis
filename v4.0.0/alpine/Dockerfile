@@ -35,9 +35,9 @@ RUN set -ex && \
   mv 3dcitydb_temp/PostgreSQL/SQLScripts/* 3dcitydb
 
 # Setup build deps
-RUN set -ex && \  
+RUN set -ex && \
   apk add --no-cache --virtual .build-deps \
-    autoconf automake clang-dev json-c-dev libtool libxml2-dev llvm8 make perl
+    autoconf automake clang clang-dev llvm json-c-dev libtool libxml2-dev make perl
 
 RUN set -ex && \
   apk add --no-cache --virtual .build-deps-edge \
