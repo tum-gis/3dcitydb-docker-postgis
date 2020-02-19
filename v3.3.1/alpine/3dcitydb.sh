@@ -95,7 +95,7 @@ cd /3dcitydb
 "${psql[@]}" -d "$CITYDBNAME" -f "CREATE_DB.sql" -v srsno="$SRID" -v gmlsrsname="$SRSNAME" > /dev/null
 echo "Setting up 3DCityDB version $CITYDBVERSION database schema in $CITYDBNAME ...done!"
 echo
-echo "# Setting up 3DCityDB ... done! ################################################"
+echo "# Setting up 3DCityDB ...done! #################################################"
 
 # echo version info and maintainer
 cat <<EOF
