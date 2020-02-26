@@ -23,7 +23,7 @@ before_script:
   - sleep 5
   - docker run --name ${version} -dit -e POSTGRES_PASSWORD=password -e "SRID=31468" -e "SRSNAME=EPSG:31468" tumgis/3dcitydb-postgis:${version}
   - docker run --name ${version}-alpine -e POSTGRES_PASSWORD=password -dit -e "SRID=31468" -e "SRSNAME=EPSG:31468" tumgis/3dcitydb-postgis:${version}-alpine
-  # - docker logs ${version}
+  # - docker logs ${version}g
   # - docker logs ${version}-alpine
   - docker images
   - docker ps -a
@@ -36,6 +36,6 @@ script:
 #  - docker logs ${version}-alpine
   
 notifications:
-    slack: tum-gis:Z32lHXJDXaycOn4643NHSXaT
+    slack: $SLACK
     on_success: change
     on_failure: always
