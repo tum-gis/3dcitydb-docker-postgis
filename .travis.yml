@@ -36,6 +36,6 @@ script:
 #  - docker logs ${version}-alpine
   
 notifications:
-    slack: $SLACK
+    slack: "${SLACK}"
     on_success: change
     on_failure: always
