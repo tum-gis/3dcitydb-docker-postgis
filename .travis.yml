@@ -1,41 +1,38 @@
 os: linux
 dist: bionic
 language: shell
-
 services:
-  - docker
-
+- docker
 env:
-  - version: v3.0.0
-  - version: v3.1.0
-  - version: v3.2.0
-  - version: v3.3.0
-  - version: v3.3.1
-  - version: v4.0.0
-  - version: v4.0.1
-  - version: v4.0.2
-
-before_install: 
-  - docker build --build-arg citydb_version=${version} -t tumgis/3dcitydb-postgis:${version} ./${version}
-  - docker build --build-arg citydb_version=${version} -t tumgis/3dcitydb-postgis:${version}-alpine ./${version}/alpine
-
+- version: v3.0.0
+- version: v3.1.0
+- version: v3.2.0
+- version: v3.3.0
+- version: v3.3.1
+- version: v4.0.0
+- version: v4.0.1
+- version: v4.0.2
+before_install:
+- docker build --build-arg citydb_version=${version} -t tumgis/3dcitydb-postgis:${version}
+  ./${version}
+- docker build --build-arg citydb_version=${version} -t tumgis/3dcitydb-postgis:${version}-alpine
+  ./${version}/alpine
 before_script:
-  - sleep 5
-  - docker run --name ${version} -dit -e POSTGRES_PASSWORD=password -e "SRID=31468" -e "SRSNAME=EPSG:31468" tumgis/3dcitydb-postgis:${version}
-  - docker run --name ${version}-alpine -e POSTGRES_PASSWORD=password -dit -e "SRID=31468" -e "SRSNAME=EPSG:31468" tumgis/3dcitydb-postgis:${version}-alpine
-  # - docker logs ${version}
-  # - docker logs ${version}-alpine
-  - docker images
-  - docker ps -a
-
+- sleep 5
+- docker run --name ${version} -dit -e POSTGRES_PASSWORD=password -e "SRID=31468"
+  -e "SRSNAME=EPSG:31468" tumgis/3dcitydb-postgis:${version}
+- docker run --name ${version}-alpine -e POSTGRES_PASSWORD=password -dit -e "SRID=31468"
+  -e "SRSNAME=EPSG:31468" tumgis/3dcitydb-postgis:${version}-alpine
+- docker images
+- docker ps -a
 script:
-  - sleep 30
-  - docker logs ${version} | grep -Pzl '(?s)Setting up 3DCityDB ...done!.*database system is ready to accept connections'
-  - docker logs ${version}-alpine | grep -Pzl '(?s)Setting up 3DCityDB ...done!.*database system is ready to accept connections'
-#  - docker logs ${version}
-#  - docker logs ${version}-alpine
-  
+- sleep 30
+- docker logs ${version} | grep -Pzl '(?s)Setting up 3DCityDB ...done!.*database system
+  is ready to accept connections'
+- docker logs ${version}-alpine | grep -Pzl '(?s)Setting up 3DCityDB ...done!.*database
+  system is ready to accept connections'
 notifications:
-    slack: tum-gis:Z32lHXJDXaycOn4643NHSXaT
-    on_success: change
-    on_failure: always
+  slack:
+    secure: kT4yM87dFVljeaXlFrInD3ffxfAHCboL0VoViOHtMp1Sci1LSw5aHpRMYfeYBZZx50lonuppcRVmciwx420T3WwuYdGC8JD3tzhp/grZvwz8IbY5ig0IxO+W9JONXDeE7W0Da/Gy6qFNBrIuHpCeV8mPpoMp8wfuReMTp7Va/RL/lZIHG+Zr/pXdzna1r87noH7M0Zmv+e7Hfu77z/c6wJrCe2uy9AtYHGcND1X1IXhKTxvpxITbJYKRvj/0vlXpXX7xYWwTEh59Rx5/zuQ//XG/5DRmFB/6m5MIuGZoP/DLzIROAKccXYJhTZMap4niQvwwPw5uLtLN73fJ4Ic+2i5KvEZ1g4/LHw85eYKOgWKXqQMAJBB1c9xSlyHq+ba5TdWDeAJ4dN7f3ir+f/DQi42YERAB2nEox9dF1mBf/qmxHgx61HuJ+ubQ8W0538JeeAczvRqNtCfWBnmFqsbeKfNSmBnH98MfAv+N1QpPyuAN8PKF56q4yD/wIBiG9jHCWPhxXXomup9noHn10bWzaqGmSMaOOBPnVyIrFNg1cODR00SZ0YLxK3eO7Cq2YC3cCObSdFBoAMhGwX8AWqQfd7ulryB6PZJPZkgd6I8NAM1ATjLsLBHDJ5VQ20G6D8TcEFDyC+MVc0MMo+VF1lpjDU2GVDNHHRRpwWZNUdHRhbc=
+  on_success: change
+  on_failure: always
