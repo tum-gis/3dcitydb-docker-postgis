@@ -37,13 +37,22 @@ RUN set -ex && \
 # Setup build deps
 RUN set -ex && \
   apk add --no-cache --virtual .build-deps \
-    autoconf automake clang clang-dev llvm json-c-dev libtool libxml2-dev make perl
-
-RUN set -ex && \
-  apk add --no-cache --virtual .build-deps-edge \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
-    g++ geos-dev gdal-dev proj-dev protobuf-c-dev
+        autoconf \
+        automake \
+        file \
+        json-c-dev \
+        libtool \
+        libxml2-dev \
+        make \
+        perl \
+        clang-dev \
+        g++ \
+        gcc \
+        gdal-dev \
+        geos-dev \
+        llvm10-dev \
+        proj-dev \
+        protobuf-c-dev
 
 # Build PostGIS
 RUN set -ex && \
@@ -55,28 +64,27 @@ RUN set -ex && \
 # Setup runtime deps
 RUN set -ex && \
   apk add --no-cache --virtual .postgis-rundeps \
-    json-c
-
-RUN set -ex && \  
-  apk add --no-cache --virtual .postgis-rundeps-edge \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
-    geos gdal proj protobuf-c libstdc++
+        json-c \
+        geos \
+        gdal \
+        proj \
+        libstdc++ \
+        protobuf-c
 
 # Cleanup
 RUN set -ex && \
-  apk del .fetch-deps .build-deps .build-deps-edge && \
-  rm -rf  postgis_temp 3dcitydb_temp
+  apk del .fetch-deps .build-deps && \
+  rm -rf postgis_temp 3dcitydb_temp
 
 # Copy scripts
 COPY 3dcitydb.sh /docker-entrypoint-initdb.d/
 COPY addcitydb dropcitydb purgedb /usr/local/bin/
 
 # Set permissions
-RUN set -ex && \ 
+RUN set -ex && \
   ln -s usr/local/bin/addcitydb / && \
   ln -s usr/local/bin/dropcitydb / && \
   ln -s usr/local/bin/purgedb / && \
   chmod u+x /usr/local/bin/dropcitydb && \
   chmod u+x /usr/local/bin/addcitydb && \
-  chmod u+x /usr/local/bin/purgedb  
+  chmod u+x /usr/local/bin/purgedb
