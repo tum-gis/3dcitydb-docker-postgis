@@ -11,7 +11,7 @@ To get started immediately go to the [quick start](#quick-start) section.
 
 * Current build status: [![Build Status](https://img.shields.io/travis/tum-gis/3dcitydb-docker-postgis/master.svg?label=master)](https://travis-ci.org/tum-gis/3dcitydb-docker-postgis) [![Build Status](https://img.shields.io/travis/tum-gis/3dcitydb-docker-postgis/devel.svg?label=devel)](https://travis-ci.org/tum-gis/3dcitydb-docker-postgis#devel)
 
-* 2020/19 - Added v4.0.3
+* 2020/10 - 3DCityDB v4.0.3 now supported.
 * 2019/11 - Upgrade to Postgresql 12 and PostGIS 3.0*
 * 2019/08 - 3DCityDB v4.0.2 now supported.
 * 2019/01 - 3DCityDB v4.0.1 now supported.
@@ -101,12 +101,16 @@ This section describes how to get a 3DCityDB PostGIS Docker container running as
 
 In this section you will find information on how to work with the 3DCityDB Docker image. For a comprehensive description of all *environment variables* and *usage examples* look further below. If you are new to Docker, I recommend reading the section on *data storage and persistence*. For building your own image scroll down to the *build* section at the bottom.
 
-To quickly get a 3DCityDB instance running on Docker run following command and adapt the `SRID`, `SRSNAME` environment variables and the `-p` switch according to your needs.
+To quickly get a 3DCityDB instance running on Docker run following command and adapt the `POSTGRES_PASSWORD`, `SRID`, `SRSNAME` environment variables and the `-p` switch according to your needs.
+
+> **Note:**
+> Setting the `POSTGRES_PASSWORD` variable is mandatory.
 
 ### Linux Bash
 
 ```bash
 docker run -dit --name citydb-container -p 5432:5432 \
+    -e "POSTGRES_PASSWORD=changeMe!" \
     -e "SRID=31468" \
     -e "SRSNAME=urn:adv:crs:DE_DHDN_3GK4*DE_DHN92_NH" \
   tumgis/3dcitydb-postgis
@@ -116,6 +120,7 @@ docker run -dit --name citydb-container -p 5432:5432 \
 
 ```bat
 docker run -dit --name citydb-container -p 5432:5432^
+    -e "POSTGRES_PASSWORD=changeMe!"^
     -e "SRID=31468"^
     -e "SRSNAME=urn:adv:crs:DE_DHDN_3GK4*DE_DHN92_NH"^
   tumgis/3dcitydb-postgis
@@ -131,7 +136,7 @@ HOST        my.docker.host
 PORT        5432
 TYPE        PostGIS
 USERNAME    postgres
-PASSWORD    postgres
+PASSWORD    changeMe!
 DBNAME      citydb
 ```
 
@@ -160,7 +165,7 @@ The 3DCityDB Docker image provided here is based on the official PostgreSQL Dock
 | Parameter name    | Description                            | Default value     |
 |-------------------|----------------------------------------|-------------------|
 | POSTGRES_USER     | PostgreSQL database user               | *postgres*        |
-| POSTGRES_PASSWORD | PostgreSQL database user password      | *postgres*        |
+| POSTGRES_PASSWORD | PostgreSQL database user password      | No default, variable is mandatory to be set with `docker run`.       |
 
 ### Usage examples
 
@@ -174,6 +179,7 @@ docker images
 
 # run container in foreground mode
 docker run -it --name citydb-container -p 1234:5432 \
+    -e "POSTGRES_PASSWORD=changeMe!" \
     -e "CITYDBNAME=mycitydb" \
     -e "SRID=31468" \
     -e "SRSNAME=urn:adv:crs:DE_DHDN_3GK4*DE_DHN92_NH" \
@@ -181,6 +187,7 @@ docker run -it --name citydb-container -p 1234:5432 \
 
 # run container in foreground mode with interactive bash shell, e.g. for making changes to the container
 docker run -it --name citydb-container -p 1234:5432 \
+    -e "POSTGRES_PASSWORD=changeMe!" \
     -e "CITYDBNAME=mycitydb" \
     -e "SRID=31468" \
     -e "SRSNAME=urn:adv:crs:DE_DHDN_3GK4*DE_DHN92_NH" \
@@ -188,6 +195,7 @@ docker run -it --name citydb-container -p 1234:5432 \
 
 # run container in detached (background) mode
 docker run -dit --name citydb-container -p 1234:5432 \
+    -e "POSTGRES_PASSWORD=changeMe!" \
     -e "CITYDBNAME=mycitydb" \
     -e "SRID=31468" \
     -e "SRSNAME=urn:adv:crs:DE_DHDN_3GK4*DE_DHN92_NH" \
@@ -207,6 +215,7 @@ docker rm -fv citydb-container    # remove a running container and delete its da
 ```bat
 :: run container in foreground mode
 docker run -it --name citydb-container -p 1234:5432^
+    -e "POSTGRES_PASSWORD=changeMe!"^
     -e "CITYDBNAME=mycitydb"^
     -e "SRID=31468"^
     -e "SRSNAME=urn:adv:crs:DE_DHDN_3GK4*DE_DHN92_NH"^
@@ -214,6 +223,7 @@ docker run -it --name citydb-container -p 1234:5432^
 
 :: run container in foreground mode with interactive bash shell, e.g. for making changes to the container
 docker run -it --name citydb-container -p 1234:5432^
+    -e "POSTGRES_PASSWORD=changeMe!"^
     -e "CITYDBNAME=mycitydb"^
     -e "SRID=31468"^
     -e "SRSNAME=urn:adv:crs:DE_DHDN_3GK4*DE_DHN92_NH"^
@@ -221,6 +231,7 @@ docker run -it --name citydb-container -p 1234:5432^
 
 :: run container in detached (background) mode
 docker run -d --name citydb-container -p 1234:5432^
+    -e "POSTGRES_PASSWORD=changeMe!"^
     -e "CITYDBNAME=mycitydb"^
     -e "SRID=31468"^
     -e "SRSNAME=urn:adv:crs:DE_DHDN_3GK4*DE_DHN92_NH"^
@@ -297,6 +308,7 @@ docker run -dit --name citydb-container -p 5432:5432 \
     -v pgdata:/var/lib/postgresql/data \
     -e "SRID=31468" \
     -e "SRSNAME=urn:adv:crs:DE_DHDN_3GK4*DE_DHN92_NH" \
+    -e "POSTGRES_PASSWORD=changeMe!" \
   tumgis/3dcitydb-postgis
 ```
 
@@ -311,6 +323,7 @@ docker run -dit --name citydb-container -p 5432:5432 \
     -v /dockerdata/pgdata:/var/lib/postgresql/data \
     -e "SRID=31468" \
     -e "SRSNAME=urn:adv:crs:DE_DHDN_3GK4*DE_DHN92_NH" \
+    -e "POSTGRES_PASSWORD=changeMe!" \
   tumgis/3dcitydb-postgis
 ```
 
@@ -326,6 +339,7 @@ docker run -dit --name citydb-container -p 5432:5432 \
     -e "PGDATA=/pgtmpfs" \
     -e "SRID=31468" \
     -e "SRSNAME=urn:adv:crs:DE_DHDN_3GK4*DE_DHN92_NH" \
+    -e "POSTGRES_PASSWORD=changeMe!" \
   tumgis/3dcitydb-postgis
 ```
 
