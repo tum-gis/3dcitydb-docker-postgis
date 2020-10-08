@@ -12,25 +12,25 @@ do
   df_version_alpine=${version_alpine}/Dockerfile
   echo $version
   echo $version_alpine
-  
+
   # clear existing version folder
   rm -rf ${version}
   mkdir -p ${version}
   mkdir -p ${version_alpine}
-    
+
   # template -> Dockerfile, replace %%CITYDB_VERSION%% in template
   sed -e "s/%%CITYDB_VERSION%%/${version}/g" "templates/3dcitydb-v3.x.x/debian/Dockerfile" > ${df_version}
   sed -e "s/%%CITYDB_VERSION%%/${version}/g" "templates/3dcitydb-v3.x.x/alpine/Dockerfile" > ${df_version_alpine}
-  
+
   # copy scripts
   cp $scripts ${version}
   cp $scripts ${version_alpine}
-  
-  git add ${version} ${version_alpine}  
+
+  git add ${version} ${version_alpine}
 done
 
 # 3DCityDB v4.x.x -------------------------------------------------------------
-declare -a citydb_versions=("v4.0.0" "v4.0.1" "v4.0.2")
+declare -a citydb_versions=("v4.0.0" "v4.0.1" "v4.0.2" "v4.0.3")
 scripts='templates/3dcitydb.sh templates/addcitydb templates/dropcitydb templates/purgedb'
 
 for i in "${citydb_versions[@]}"
@@ -41,19 +41,19 @@ do
   df_version_alpine=${version_alpine}/Dockerfile
   echo $version
   echo $version_alpine
-  
+
   # clear existing version folder
   rm -rf ${version}
   mkdir -p ${version}
   mkdir -p ${version_alpine}
-    
+
   # template -> Dockerfile, replace %%CITYDB_VERSION%% in template
   sed -e "s/%%CITYDB_VERSION%%/${version}/g" "templates/3dcitydb-v4.x.x/debian/Dockerfile" > ${df_version}
   sed -e "s/%%CITYDB_VERSION%%/${version}/g" "templates/3dcitydb-v4.x.x/alpine/Dockerfile" > ${df_version_alpine}
-  
+
   # copy scripts
   cp $scripts ${version}
   cp $scripts ${version_alpine}
-  
-  git add ${version} ${version_alpine}  
+
+  git add ${version} ${version_alpine}
 done

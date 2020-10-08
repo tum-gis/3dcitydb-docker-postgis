@@ -12,6 +12,7 @@ env:
 - version: v4.0.0
 - version: v4.0.1
 - version: v4.0.2
+- version: v4.0.3
 before_install:
 - docker build --build-arg citydb_version=${version} -t tumgis/3dcitydb-postgis:${version}
   ./${version}

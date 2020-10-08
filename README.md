@@ -11,7 +11,8 @@ To get started immediately go to the [quick start](#quick-start) section.
 
 * Current build status: [![Build Status](https://img.shields.io/travis/tum-gis/3dcitydb-docker-postgis/master.svg?label=master)](https://travis-ci.org/tum-gis/3dcitydb-docker-postgis) [![Build Status](https://img.shields.io/travis/tum-gis/3dcitydb-docker-postgis/devel.svg?label=devel)](https://travis-ci.org/tum-gis/3dcitydb-docker-postgis#devel)
 
-* 2019/11 - Upgrade to Postgresql 12 and PostGIS 3.0
+* 2020/19 - Added v4.0.3
+* 2019/11 - Upgrade to Postgresql 12 and PostGIS 3.0*
 * 2019/08 - 3DCityDB v4.0.2 now supported.
 * 2019/01 - 3DCityDB v4.0.1 now supported.
 * 2018/09 - 3DCityDB v4.0.0 now supported.
@@ -31,34 +32,35 @@ Check out the Docker images for the *3D City Database Web Feature Service (WFS)*
 
 ## Content
 
-* [News](#news)
-* [Features](#features)
-* [More 3DCityDB Docker Images](#more-3dcitydb-docker-images)
-* [Content](#content)
-* [Image versions (tags)](#image-versions-tags)
-* [What is the 3D City Database](#what-is-the-3d-city-database)
-* [Quick start](#quick-start)
-* [How to use this image](#how-to-use-this-image)
-  * [Linux Bash](#linux-bash)
-  * [Windows CMD](#windows-cmd)
-* [Environment variables](#environment-variables)
-  * [Usage examples](#usage-examples)
-    * [Example Linux Bash](#example-linux-bash)
-    * [Example Windows CMD](#example-windows-cmd)
-* [Helper scripts](#helper-scripts)
-  * [Add/Create a 3DCityDB instance](#addcreate-a-3dcitydb-instance)
-  * [Remove a 3DCityDB instance](#remove-a-3dcitydb-instance)
-  * [Remove a 3DCityDB instance (entire database)](#remove-a-3dcitydb-instance-entire-database)
-* [Data storage and persistence](#data-storage-and-persistence)
-  * [Volumes (recommended)](#volumes-recommended)
-  * [Bind mounts](#bind-mounts)
-  * [Tmpfs mounts](#tmpfs-mounts)
-  * [Data within the writable layer of the container](#data-within-the-writable-layer-of-the-container)
-* [How to build](#how-to-build)
-* [Build parameters](#build-parameters)
-  * [Build example](#build-example)
-* [Quick reference](#quick-reference)
-* [License](#license)
+- [3D City Database PostGIS Docker image](#3d-city-database-postgis-docker-image)
+  - [News](#news)
+  - [Features](#features)
+  - [More 3DCityDB Docker Images](#more-3dcitydb-docker-images)
+  - [Content](#content)
+  - [Image versions (tags)](#image-versions-tags)
+  - [What is the 3D City Database](#what-is-the-3d-city-database)
+  - [Quick start](#quick-start)
+  - [How to use this image](#how-to-use-this-image)
+    - [Linux Bash](#linux-bash)
+    - [Windows CMD](#windows-cmd)
+  - [Environment variables](#environment-variables)
+    - [Usage examples](#usage-examples)
+      - [Example Linux Bash](#example-linux-bash)
+      - [Example Windows CMD](#example-windows-cmd)
+  - [Helper scripts](#helper-scripts)
+    - [Add/Create a 3DCityDB instance](#addcreate-a-3dcitydb-instance)
+    - [Remove a 3DCityDB instance](#remove-a-3dcitydb-instance)
+    - [Remove a 3DCityDB instance (entire database)](#remove-a-3dcitydb-instance-entire-database)
+  - [Data storage and persistence](#data-storage-and-persistence)
+    - [Volumes (recommended)](#volumes-recommended)
+    - [Bind mounts](#bind-mounts)
+    - [Tmpfs mounts](#tmpfs-mounts)
+    - [Data within the writable layer of the container](#data-within-the-writable-layer-of-the-container)
+  - [How to build](#how-to-build)
+  - [Build parameters](#build-parameters)
+    - [Build example](#build-example)
+  - [Quick reference](#quick-reference)
+  - [License](#license)
 
 ## Image versions (tags)
 
@@ -78,9 +80,9 @@ The award winning 3D City Database is a free geo database to store, represent, a
 The 3D City Database comes with tools for easy data exchange and coupling with cloud services. The 3D City Database content can be directly exported in KML, COLLADA, and glTF formats for the visualization in a broad range of applications like Google Earth, ArcGIS, and the WebGL-based Cesium Virtual Globe.
 
 ![3DCityDB](https://www.3dcitydb.org/3dcitydb/fileadmin/default/templates/images/logo.jpg "3DCityDB logo")
-> [3DCityDB Official Homepage](https://www.3dcitydb.net/)  
-> [3DCityDB Github](https://github.com/3dcitydb)  
-> [CityGML](https://www.citygml.org/)  
+> [3DCityDB Official Homepage](https://www.3dcitydb.net/)
+> [3DCityDB Github](https://github.com/3dcitydb)
+> [CityGML](https://www.citygml.org/)
 > [3DCityDB and CityGML Hands-on Tutorial](https://www.gis.bgu.tum.de/en/projects/3dcitydb/#c1425)
 
 ## Quick start
@@ -89,7 +91,7 @@ This section describes how to get a 3DCityDB PostGIS Docker container running as
 
 1. Install Docker on your system.
    This step is mandatory. Downloads and detailed instructions for various operating systems can be found here: [https://docs.docker.com/install/](https://docs.docker.com/install/)
-2. Download (Rightclick -> Save target as) and execute a *Quickstart scripts*.  
+2. Download (Rightclick -> Save target as) and execute a *Quickstart scripts*.
    The Quickstart scripts are meant for Docker newcomers and convenient usage of the images. They will guide you through the process of setting up a 3DCityDB Docker container. There is no previous knowledge on Docker required! The scripts will download the 3DCityDB PostGIS Docker image for form [DockerHub](https://hub.docker.com/r/tumgis/3dcitydb-postgis/) for you and interactively request all required configuration.
 
 * [quickstart.bat](https://github.com/tum-gis/3dcitydb-docker-postgis/blob/devel/quickstart.bat) for **Windows** operating systems
@@ -120,7 +122,7 @@ docker run -dit --name citydb-container -p 5432:5432^
 ```
 
 > **Note:**
-> In the examples above long commands are broken to several lines for readability using the Bash (`\`) or CMD (`^`) line continuation.  
+> In the examples above long commands are broken to several lines for readability using the Bash (`\`) or CMD (`^`) line continuation.
 
 When your Docker container is running according to the example above, you can connect to the 3DCityDB instance using e.g. the 3DCityDB ImporterExporter with the following credentials:
 
@@ -131,7 +133,7 @@ TYPE        PostGIS
 USERNAME    postgres
 PASSWORD    postgres
 DBNAME      citydb
-```  
+```
 
 To check if the 3DCityDB docker container is operational take a look at the container's log using `docker logs CONTAINER`. You will find a summary of the *database connection credentials* and the *spatial reference system* configuration in the log as well.
 
@@ -226,7 +228,7 @@ docker run -d --name citydb-container -p 1234:5432^
 ```
 
 > **Note:**
-> In the examples above long commands are broken to several lines for readability using the Bash (`\`) or CMD (`^`) line continuation.  
+> In the examples above long commands are broken to several lines for readability using the Bash (`\`) or CMD (`^`) line continuation.
 
 ## Helper scripts
 
@@ -276,7 +278,7 @@ docker exec -it CONTAINER purgedb myNew-Database
 
 When you are new to Docker, the way data is managed and stored is very likely to be different from what you expect. It is possible to store data used in Docker containers in four different ways, all of them with their pros and cons. If you are not sure which data persistence strategy to go for, it is recommend to use a **Volume**, which is the default behavior and suitable for most use cases. For more guidance regarding Docker data management head over to the [Docker data management](https://docs.docker.com/engine/admin/volumes/) article. Below, a brief excerpt of the original article and some examples are shown. One important difference between the data management alternatives is where the data lives on the Docker host, as depicted in the image below.
 
-![Docker data storage](https://docs.docker.com/storage/images/types-of-mounts.png "Docker data storage")  
+![Docker data storage](https://docs.docker.com/storage/images/types-of-mounts.png "Docker data storage")
   (Image from [Docker data management](https://docs.docker.com/engine/admin/volumes/))
 
 * **Volumes** are stored in a part of the host filesystem which is managed by Docker (`/var/lib/docker/volumes/` on Linux).
@@ -330,7 +332,7 @@ docker run -dit --name citydb-container -p 5432:5432 \
 Docker provides much more options when working with tmpfs mounts. Take a look the [docker tmpfs mount usage documentation](https://docs.docker.com/engine/admin/volumes/tmpfs/) for more insight.
 
 > **Note:**
-> *tmpfs* mounts only work on Linux containers, and not on Windows containers.  
+> *tmpfs* mounts only work on Linux containers, and not on Windows containers.
 
 ### Data within the writable layer of the container
 
@@ -377,11 +379,11 @@ docker build -t 3dcitydb-postgis:pg9.6-v3.0.0 \
 
 ## Quick reference
 
-* Where to get help:  
+* Where to get help:
   [the Docker Community Forums](https://forums.docker.com/), [the docker Community Stack](https://blog.docker.com/2016/11/introducing-docker-community-directory-docker-community-slack/), [Stack Overflow](https://stackoverflow.com/search?tab=newest&q=docker)
-* Where to file issues:  
+* Where to file issues:
   [tum-gis/3dcitydb-docker-postgis](https://github.com/tum-gis/3dcitydb-docker-postgis/issues)
-* Maintained by:  
+* Maintained by:
   [Bruno Willenborg, Chair of Geoinformatics, Technical University of Munich (TUM)](https://www.gis.bgu.tum.de/)
 
 ## License
