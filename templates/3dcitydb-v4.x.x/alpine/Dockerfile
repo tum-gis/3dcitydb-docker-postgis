@@ -58,7 +58,7 @@ RUN set -ex && \
 RUN set -ex && \
   cd postgis_temp && \
   ./autogen.sh && \
-  ./configure && make && make install && \
+  ./configure && make -j$(nproc) && make install && \
   cd ..
 
 # Setup runtime deps
