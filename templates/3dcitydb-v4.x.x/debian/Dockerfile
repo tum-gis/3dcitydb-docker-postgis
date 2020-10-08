@@ -35,7 +35,7 @@ RUN set -x && \
 # Clone 3DCityDB
 RUN set -x && \
   git clone -b "${CITYDBVERSION}" --depth 1 https://github.com/3dcitydb/3dcitydb.git 3dcitydb_temp && \
-  mv 3dcitydb_temp/PostgreSQL/SQLScripts/* 3dcitydb
+  mv 3dcitydb_temp/?ostgre???/SQLScripts/* 3dcitydb
 
 # Cleanup
 RUN set -x && \
@@ -48,10 +48,10 @@ COPY 3dcitydb.sh /docker-entrypoint-initdb.d/
 COPY addcitydb dropcitydb purgedb /usr/local/bin/
 
 # Set permissions
-RUN set -ex && \ 
+RUN set -ex && \
   ln -s usr/local/bin/addcitydb / && \
   ln -s usr/local/bin/dropcitydb / && \
   ln -s usr/local/bin/purgedb / && \
   chmod u+x /usr/local/bin/dropcitydb && \
   chmod u+x /usr/local/bin/addcitydb && \
-  chmod u+x /usr/local/bin/purgedb  
+  chmod u+x /usr/local/bin/purgedb

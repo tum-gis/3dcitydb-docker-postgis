@@ -32,7 +32,7 @@ RUN set -ex && \
 RUN set -ex && \
   git clone -b "${POSTGIS_VERSION}" --depth 1 https://github.com/postgis/postgis.git postgis_temp && \
   git clone -b "${CITYDBVERSION}" --depth 1 https://github.com/3dcitydb/3dcitydb.git 3dcitydb_temp && \
-  mv 3dcitydb_temp/PostgreSQL/SQLScripts/* 3dcitydb
+  mv 3dcitydb_temp/?ostgre???/SQLScripts/* 3dcitydb
 
 # Setup build deps
 RUN set -ex && \
