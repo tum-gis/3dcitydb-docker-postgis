@@ -1,15 +1,23 @@
 # 3D City Database PostGIS Docker image
 
-This repo contains Dockerfiles to create a [3D City Database (3DCityDB)](https://github.com/3dcitydb) running on a [PostgreSQL](https://www.postgresql.org/) DBMS with [PostGIS](https://postgis.net/). To get the 3DCityDB PostGIS Docker images visit the [tumgis/3dcitydb-postgis](https://hub.docker.com/r/tumgis/3dcitydb-postgis/) DockerHub page.
+This repo contains Dockerfiles to create a
+[3D City Database (3DCityDB)](https://github.com/3dcitydb)
+running on a [PostgreSQL](https://www.postgresql.org/) DBMS with
+[PostGIS](https://postgis.net/). To get the 3DCityDB PostGIS Docker
+images visit the [tumgis/3dcitydb-postgis](https://hub.docker.com/r/tumgis/3dcitydb-postgis/) DockerHub page.
 
 To get started immediately go to the [quick start](#quick-start) section.
 
 > **Note:** The content in this repo is in development stage.
-> If you experience any problems or have a suggestion/improvement please let me know by creating an [issue](https://github.com/tum-gis/3dcitydb-docker-postgis/issues) or make a contribution with a [pull request](https://github.com/tum-gis/3dcitydb-docker-postgis/pulls).
+> If you experience any problems or have a suggestion/improvement
+> please let me know by creating an
+> [issue](https://github.com/tum-gis/3dcitydb-docker-postgis/issues)
+> or make a contribution with a
+> [pull request](https://github.com/tum-gis/3dcitydb-docker-postgis/pulls).
 
 ## News
 
-* Current build status: [![Build Status](https://img.shields.io/travis/tum-gis/3dcitydb-docker-postgis/master.svg?label=master)](https://travis-ci.org/tum-gis/3dcitydb-docker-postgis) [![Build Status](https://img.shields.io/travis/tum-gis/3dcitydb-docker-postgis/devel.svg?label=devel)](https://travis-ci.org/tum-gis/3dcitydb-docker-postgis#devel)
+* Current build status: [![Build Status](https://img.shields.io/travis/tum-gis/3dcitydb-docker-postgis/master.svg?label=master)](https://travis-ci.com/tum-gis/3dcitydb-docker-postgis) [![Build Status](https://img.shields.io/travis/tum-gis/3dcitydb-docker-postgis/devel.svg?label=devel)](https://travis-ci.com/tum-gis/3dcitydb-docker-postgis#devel)
 
 * 2020/10 - 3DCityDB v4.0.3 now supported.
 * 2019/11 - Upgrade to Postgresql 12 and PostGIS 3.0
@@ -20,14 +28,17 @@ To get started immediately go to the [quick start](#quick-start) section.
 
 ## Features
 
-* *Quickstart scripts* for interactive container creation for convenience and Docker newcomers.
-* Helper scripts for *adding*, *removing* and *purging* a 3DCityDB instance inside a container.
+* *Quickstart scripts* for interactive container creation for
+convenience and Docker newcomers.
+* Helper scripts for *adding*, *removing* and *purging* a
+3DCityDB instance inside a container.
 
 ## More 3DCityDB Docker Images
 
-Check out the Docker images for the *3D City Database Web Feature Service (WFS)* and the *3D City Database Web-Map-Client* too:
+Check out the Docker images for the *3D City Database Web Feature Service (WFS)*
+and the *3D City Database Web-Map-Client* too:
 
-* [3DCityDB Web Feature Service (WFS) image](https://github.com/tum-gis/3dcitydb-wfs-docker/)
+* [3DCityDB Web Feature Service(WFS) image](https://github.com/tum-gis/3dcitydb-wfs-docker/)
 * [3DCityDB Web-Map-Client image](https://github.com/tum-gis/3dcitydb-web-map-docker/)
 
 ## Content
@@ -75,9 +86,18 @@ Use `docker pull tumgis/3dcitydb-postgis:TAG` to download the latest version of 
 
 ## What is the 3D City Database
 
-The award winning 3D City Database is a free geo database to store, represent, and manage virtual 3D city models on top of a standard spatial relational database. The database schema implements the CityGML standard with semantically rich and multi-scale urban objects facilitating complex analysis tasks, far beyond visualization. 3DCityDB is in productive and commercial use for more than 10 years in many places around the world. It is also employed in numerous research projects related to 3D city models.
+The award winning 3D City Database is a free geo database to store, represent,
+and manage virtual 3D city models on top of a standard spatial relational
+database. The database schema implements the CityGML standard with semantically
+rich and multi-scale urban objects facilitating complex analysis tasks, far
+beyond visualization. 3DCityDB is in productive and commercial use for more
+than 10 years in many places around the world. It is also employed in numerous
+research projects related to 3D city models.
 
-The 3D City Database comes with tools for easy data exchange and coupling with cloud services. The 3D City Database content can be directly exported in KML, COLLADA, and glTF formats for the visualization in a broad range of applications like Google Earth, ArcGIS, and the WebGL-based Cesium Virtual Globe.
+The 3D City Database comes with tools for easy data exchange and coupling with
+cloud services. The 3D City Database content can be directly exported in KML,
+COLLADA, and glTF formats for the visualization in a broad range of
+pplications like Google Earth, ArcGIS, and the WebGL-based Cesium Virtual Globe.
 
 ![3DCityDB](https://www.3dcitydb.org/3dcitydb/fileadmin/default/templates/images/logo.jpg "3DCityDB logo")
 > [3DCityDB Official Homepage](https://www.3dcitydb.net/)
