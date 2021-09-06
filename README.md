@@ -1,5 +1,21 @@
 # 3D City Database PostGIS Docker image
 
+**!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!**
+
+**Deprecation notice:** This repository has been deprecated on 6th of September 2021.
+The Docker images and this documentation will no longer be updated, because the content
+has moved to the [official 3DCityDB repository](https://github.com/3dcitydb). The old
+images will remain available on DockerHub, however, we recommend to migrate to the new
+version.
+
+Please find the **new Docker images** and **updated documentation** here:
+
+* Source code, Dockerfiles: https://github.com/3dcitydb/3dcitydb
+* Documentation: https://3dcitydb-docs.readthedocs.io/en/latest/3dcitydb/docker.html
+* Docker image repository: https://hub.docker.com/repository/docker/3dcitydb/3dcitydb-pg
+
+**!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!**
+
 This repo contains Dockerfiles to create a
 [3D City Database (3DCityDB)](https://github.com/3dcitydb)
 running on a [PostgreSQL](https://www.postgresql.org/) DBMS with
